@@ -10,7 +10,8 @@ Gem::Specification.new do |spec|
   spec.authors       = ['Amr Bakry']
   spec.email         = ['amrrbakry17@gmail.com']
 
-  spec.summary       = "A library to interface with Fawry's payment gateway API."
+  spec.summary       = "A library to interface with Fawry's payment gateway API (charge, refund, payment status, service callback)."
+  spec.homepage      = 'https://github.com/amrrbakry/fawry'
   spec.license       = 'MIT'
 
   spec.metadata['homepage_uri'] = 'https://github.com/amrrbakry/fawry'
