@@ -1,8 +1,12 @@
+# frozen_string_literal: true
+
 require 'digest'
 
 module Fawry
   module Requests
     module ChargeRequest
+      DEFAULTS = { payment_method: 'PAYATFAWRY', currency_code: 'EGP' }.freeze
+
       def fire
         Connection.post(request[:path], request[:params], request[:body])
         # FawryResponse.new(response)
@@ -10,41 +14,50 @@ module Fawry
 
       private
 
-      DEFAULTS = { payment_method: 'PAYATFAWRY', currency_code: 'EGP' }.freeze
-
       def build_charge_request
         {
           path: 'charge',
           params: {},
-          body: charge_request_params
+          body: charge_request_transformed_params
         }
       end
 
-      def charge_request_params
+      def request_params
+        @request_params ||= DEFAULTS.merge(params)
+      end
+
+      def charge_request_transformed_params
         {
-          merchantCode: params[:merchant_code],
-          merchantRefNum: params[:merchant_ref_num],
-          customerProfileId: params[:customer_profile_id],
-          cardToken: params[:card_token],
-          customerMobile: params[:customer_mobile],
-          customerEmail: params[:customer_email],
-          paymentMethod: params[:payment_method],
-          amount: params[:amount],
-          description: params[:description],
-          paymentExpiry: params[:payment_expiry],
-          chargeItems: params[:charge_items],
-          currencyCode: params[:currency_code],
-          signature: charge_signature
-        }
+          merchantCode: request_params[:merchant_code],
+          merchantRefNum: request_params[:merchant_ref_num],
+          customerProfileId: request_params[:customer_profile_id],
+          cardToken: request_params[:card_token],
+          customerMobile: request_params[:customer_mobile],
+          customerEmail: request_params[:customer_email],
+          paymentMethod: request_params[:payment_method],
+          amount: request_params[:amount],
+          description: request_params[:description],
+          paymentExpiry: request_params[:payment_expiry],
+          chargeItems: charge_items,
+          currencyCode: request_params[:currency_code],
+          signature: charge_request_signature
+        }.compact
       end
 
       def validate_charge_params!
-        # do nothing for now
+        contract = Contracts::ChargeRequestContract.new.call(request_params)
+        raise InvalidFawryRequest, contract.errors.to_h if contract.failure?
       end
 
-      def charge_signature
-        Digest::SHA256.hexdigest("#{params[:merchant_code]}#{params[:merchant_ref_num]}#{params[:customer_profile_id]} \
-                                 #{params[:payment_method]}#{format('%.2f', params[:amount])}#{params[:fawry_secure_key]}")
+      def charge_items
+        request_params[:charge_items].each { |hash| hash[:itemId] = hash.delete(:item_id) }
+      end
+
+      def charge_request_signature
+        Digest::SHA256.hexdigest("#{request_params[:merchant_code]}#{request_params[:merchant_ref_num]}"\
+                                 "#{request_params[:customer_profile_id]}#{request_params[:payment_method]}"\
+                                 "#{format('%<amount>.2f', amount: request_params[:amount])}"\
+                                 "#{request_params[:fawry_secure_key]}")
       end
     end
   end
