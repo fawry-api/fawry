@@ -4,6 +4,7 @@ require 'fawry/version'
 require 'fawry/connection'
 require 'fawry/errors'
 require 'fawry/fawry_request'
+require 'fawry/fawry_response'
 require 'fawry/requests/charge_request'
 require 'fawry/contracts/charge_request_contract'
 

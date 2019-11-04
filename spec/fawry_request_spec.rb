@@ -16,7 +16,7 @@ RSpec.describe Fawry::FawryRequest do
       it 'fires a charge request to fawry' do
         stub_request(:post, Fawry::Connection::FAWRY_BASE_URL + 'charge')
           .with(body: fawry_params)
-          .to_return(status: 200, body: fawry_response)
+          .to_return(status: 200, body: fawry_api_response)
 
         described_class.new('charge', params).fire
 

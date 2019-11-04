@@ -51,9 +51,17 @@ def fawry_params
 end
 # rubocop:enable Metrics/MethodLength
 
-def fawry_response
-  { 'type' => 'ChargeResponse', 'referenceNumber' => '931215518',
+def fawry_api_response
+  { 'type' => 'ChargeResponse',
+    'referenceNumber' => '931215518',
     'merchantRefNumber' => 'io5jxf3jp27kfh8m719arcqgw7izo7db',
-    'expirationTime' => 1_572_884_477_505, 'statusCode' => 200,
+    'expirationTime' => 1_572_884_477_505,
+    'statusCode' => 200,
     'statusDescription' => 'Operation done successfully' }.to_json
+end
+
+def fawry_api_failure_response
+  { 'type' => 'ChargeResponse',
+    'statusCode' => 9946,
+    'statusDescription' => 'INVALID_SIGNATURE' }.to_json
 end
