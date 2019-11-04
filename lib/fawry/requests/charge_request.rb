@@ -59,7 +59,7 @@ module Fawry
         Digest::SHA256.hexdigest("#{request_params[:merchant_code]}#{request_params[:merchant_ref_num]}"\
                                  "#{request_params[:customer_profile_id]}#{request_params[:payment_method]}"\
                                  "#{format('%<amount>.2f', amount: request_params[:amount])}"\
-                                 "#{request_params[:fawry_secure_key]}")
+                                 "#{request_params[:card_token]}#{request_params[:fawry_secure_key]}")
       end
     end
   end
