@@ -1,7 +1,7 @@
 # Fawry
 A plug-and-play library that makes interfacing with Fawry's payment gateway API a breeze:
-- [Charge customers](https://github.com/amrrbakry/fawry#-charge-customers)
-- [Refund customers](https://github.com/amrrbakry/fawry#-refund-customers)
+- [Charge customers](https://github.com/amrrbakry/fawry#charge-customers)
+- [Refund customers](https://github.com/amrrbakry/fawry#refund-customers)
 - Get payment status _(Not yet implemented)_
 - Parse Fawry's service callback V2 _(Not yet implemented)_
 
