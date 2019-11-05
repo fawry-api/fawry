@@ -35,18 +35,18 @@ end
 # rubocop:disable Metrics/MethodLength
 def fawry_params
   {
-    merchantCode: params[:merchant_code],
-    merchantRefNum: params[:merchant_ref_num],
-    customerProfileId: params[:customer_profile_id],
-    customerMobile: params[:customer_mobile],
-    paymentMethod: params[:payment_method],
-    amount: params[:amount],
-    description: params[:description],
-    paymentExpiry: params[:payment_expiry],
-    chargeItems: [{ 'itemId': 'fk3fn9flk8et9a5t9w3c5h3oc684ivho', 'description': 'asdasd',
-                    'price': 20.5, 'quantity': 1 }],
-    currencyCode: 'EGP',
-    signature: '68a1ff1e7189137f1b3c98784399b3adc49bd644d159593a8ed2fc70a810bd7b'
+    'merchantCode': params[:merchant_code],
+    'merchantRefNum': params[:merchant_ref_num],
+    'customerProfileId': params[:customer_profile_id],
+    'customerMobile': params[:customer_mobile],
+    'paymentMethod': params[:payment_method],
+    'amount': params[:amount],
+    'description': params[:description],
+    'paymentExpiry': params[:payment_expiry],
+    'chargeItems': [{ 'itemId': 'fk3fn9flk8et9a5t9w3c5h3oc684ivho', 'description': 'asdasd',
+                      'price': 20.5, 'quantity': 1 }],
+    'currencyCode': 'EGP',
+    'signature': '68a1ff1e7189137f1b3c98784399b3adc49bd644d159593a8ed2fc70a810bd7b'
   }.compact
 end
 # rubocop:enable Metrics/MethodLength
@@ -58,6 +58,28 @@ def fawry_api_response
     'expirationTime' => 1_572_884_477_505,
     'statusCode' => 200,
     'statusDescription' => 'Operation done successfully' }.to_json
+end
+
+def refund_params
+  { "merchant_code": 'merchant_code',
+    "reference_number": '931337410',
+    "refund_amount": 20.5,
+    'fawry_secure_key': 'fawry_secure_key' }
+end
+
+def fawry_refund_params
+  {
+    'merchantCode': refund_params[:merchant_code],
+    'referenceNumber': refund_params[:reference_number],
+    'refundAmount': refund_params[:refund_amount],
+    'signature': '3ddbaf9457ed9b5f6e048e1775ff7eaccd477070e31cf28a90d879e8f9689323'
+  }.compact
+end
+
+def fawry_refund_response
+  { "type": 'ResponseDataModel',
+    "statusCode": 200,
+    "statusDescription": 'Operation done successfully' }.to_json
 end
 
 def fawry_api_failure_response

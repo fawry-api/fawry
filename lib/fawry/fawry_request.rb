@@ -19,6 +19,10 @@ module Fawry
         self.class.include Requests::ChargeRequest
         validate_charge_params!
         @request = build_charge_request
+      when 'refund'
+        self.class.include Requests::RefundRequest
+        validate_refund_params!
+        @request = build_refund_request
       end
     end
   end
