@@ -1,7 +1,7 @@
 # Fawry
 A plug-and-play library that makes interfacing with Fawry's payment gateway API a breeze:
-- Charge customers
-- Refund customers
+- [Charge customers](https://github.com/amrrbakry/fawry#-charge-customers)
+- [Refund customers](https://github.com/amrrbakry/fawry#-refund-customers)
 - Get payment status _(Not yet implemented)_
 - Parse Fawry's service callback V2 _(Not yet implemented)_
 
@@ -24,7 +24,7 @@ Or install it yourself as:
     $ gem install fawry
 
 ## Usage
-### - Charge customers
+### Charge customers
 ```ruby
 params = { "merchant_code": 'merchant_code',
            "merchant_ref_num": 'io5jxf3jp27kfh8m719arcqgw7izo7db',
@@ -48,7 +48,7 @@ res = Fawry.charge(params, sandbox: true)
 res.success? # => true
 res.reference_number # => 931600239
 ```
-### - Refund Customers
+###  Refund Customers
 ```ruby
 params = { "merchant_code": 'merchant_code',
            "reference_number": '931337410',
