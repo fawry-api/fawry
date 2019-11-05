@@ -4,7 +4,7 @@ RSpec.describe Fawry::FawryRequest do
   context 'charge request' do
     describe '.new' do
       it 'builds the correct charge request' do
-        fawry_request = described_class.new('charge', params)
+        fawry_request = described_class.new('charge', params, {})
         expect(fawry_request.class.included_modules.include?(Fawry::Requests::ChargeRequest)).to be true
         expect(fawry_request.action).to eq('charge')
         expect(fawry_request.request[:path]).to eq('charge')
@@ -18,7 +18,7 @@ RSpec.describe Fawry::FawryRequest do
           .with(body: fawry_params)
           .to_return(status: 200, body: fawry_api_response)
 
-        described_class.new('charge', params).fire
+        described_class.new('charge', params, {}).fire
 
         expect(WebMock).to have_requested(:post, Fawry::Connection::FAWRY_BASE_URL + 'charge')
           .with(body: fawry_params)
@@ -29,7 +29,7 @@ RSpec.describe Fawry::FawryRequest do
   context 'refund request' do
     describe '.new' do
       it 'builds the correct refund request' do
-        fawry_request = described_class.new('refund', refund_params)
+        fawry_request = described_class.new('refund', refund_params, {})
         expect(fawry_request.class.included_modules.include?(Fawry::Requests::RefundRequest)).to be true
         expect(fawry_request.action).to eq('refund')
         expect(fawry_request.request[:path]).to eq('refund')
@@ -43,7 +43,7 @@ RSpec.describe Fawry::FawryRequest do
           .with(body: fawry_refund_params)
           .to_return(status: 200, body: fawry_refund_response)
 
-        described_class.new('refund', refund_params).fire
+        described_class.new('refund', refund_params, {}).fire
 
         expect(WebMock).to have_requested(:post, Fawry::Connection::FAWRY_BASE_URL + 'refund')
           .with(body: fawry_refund_params)

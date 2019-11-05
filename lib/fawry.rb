@@ -12,12 +12,12 @@ require 'fawry/contracts/refund_request_contract'
 
 module Fawry
   class << self
-    def charge(params)
-      FawryRequest.new('charge', params).fire
+    def charge(params, opts = {})
+      FawryRequest.new('charge', params, opts).fire
     end
 
-    def refund(params)
-      FawryRequest.new('refund', params).fire
+    def refund(params, opts = {})
+      FawryRequest.new('refund', params, opts).fire
     end
   end
 end

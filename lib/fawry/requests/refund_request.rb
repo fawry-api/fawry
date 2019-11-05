@@ -6,7 +6,7 @@ module Fawry
   module Requests
     module RefundRequest
       def fire
-        fawry_api_response = Connection.post(request[:path], request[:params], request[:body])
+        fawry_api_response = Connection.post(request[:path], request[:params], request[:body], request[:options])
         response_body = JSON.parse(fawry_api_response.body)
 
         FawryResponse.new(response_body)
@@ -18,7 +18,8 @@ module Fawry
         {
           path: 'refund',
           params: {},
-          body: refund_request_transformed_params
+          body: refund_request_transformed_params,
+          options: options
         }
       end
 

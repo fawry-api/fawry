@@ -2,11 +2,14 @@
 
 module Fawry
   class FawryRequest
-    attr_reader :action, :params, :request
+    DEFAULT_OPTIONS = { sandbox: false }.freeze
 
-    def initialize(action, params)
+    attr_reader :action, :params, :request, :options
+
+    def initialize(action, params, opts)
       @action = action
       @params = params
+      @options = DEFAULT_OPTIONS.merge(opts)
 
       build_request
     end
