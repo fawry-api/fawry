@@ -14,6 +14,7 @@ Gem::Specification.new do |spec|
                         service callback)."
   spec.homepage      = 'https://github.com/amrrbakry/fawry'
   spec.license       = 'MIT'
+  spec.required_ruby_version = '~> 2.6'
 
   spec.metadata['homepage_uri'] = 'https://github.com/amrrbakry/fawry'
   spec.metadata['source_code_uri'] = 'https://github.com/amrrbakry/fawry'
