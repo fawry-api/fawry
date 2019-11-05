@@ -41,7 +41,8 @@ module Fawry
     def build_response
       fawry_api_response.keys.each do |key|
         method_name = key.split(/(?=[A-Z])/).map(&:downcase).join('_') # statusCode => status_code
-        method_body = proc { fawry_api_response[key] }
+        instance_variable_set("@#{method_name}", fawry_api_response[key])
+        method_body = proc { instance_variable_get("@#{method_name}") }
 
         self.class.public_send(:define_method, method_name, method_body)
       end
