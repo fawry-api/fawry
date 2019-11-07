@@ -50,4 +50,29 @@ RSpec.describe Fawry::FawryRequest do
       end
     end
   end
+
+  context 'payment status request' do
+    describe '.new' do
+      it 'builds the correct payment status request' do
+        fawry_request = described_class.new('payment_status', payment_status_params, {})
+        expect(fawry_request.class.included_modules.include?(Fawry::Requests::PaymentStatusRequest)).to be true
+        expect(fawry_request.action).to eq('payment_status')
+        expect(fawry_request.request[:path]).to eq('status')
+        expect(fawry_request.request[:params].keys).to eq(fawry_payment_status_params.keys)
+      end
+    end
+
+    describe '#fire' do
+      it 'fires a payment status request to fawry' do
+        stub_request(:get, Fawry::Connection::FAWRY_BASE_URL + 'status')
+          .with(query: fawry_payment_status_params)
+          .to_return(status: 200, body: fawry_payment_status_response)
+
+        described_class.new('payment_status', payment_status_params, {}).fire_payment_status_request
+
+        expect(WebMock).to have_requested(:get, Fawry::Connection::FAWRY_BASE_URL + 'status')
+          .with(query: fawry_payment_status_params)
+      end
+    end
+  end
 end

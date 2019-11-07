@@ -29,6 +29,8 @@ module Fawry
         @request_params ||= DEFAULTS.merge(params)
       end
 
+      # rubocop:disable Metrics/AbcSize
+      # rubocop:disable Metrics/MethodLength
       def charge_request_transformed_params
         {
           merchantCode: request_params[:merchant_code],
@@ -46,6 +48,8 @@ module Fawry
           signature: charge_request_signature
         }.compact
       end
+      # rubocop:enable Metrics/MethodLength
+      # rubocop:enable Metrics/AbcSize
 
       def validate_charge_params!
         contract = Contracts::ChargeRequestContract.new.call(request_params)
@@ -56,12 +60,14 @@ module Fawry
         request_params[:charge_items].each { |hash| hash[:itemId] = hash.delete(:item_id) }
       end
 
+      # rubocop:disable Metrics/AbcSize
       def charge_request_signature
         Digest::SHA256.hexdigest("#{request_params[:merchant_code]}#{request_params[:merchant_ref_num]}"\
                                  "#{request_params[:customer_profile_id]}#{request_params[:payment_method]}"\
                                  "#{format('%<amount>.2f', amount: request_params[:amount])}"\
                                  "#{request_params[:card_token]}#{request_params[:fawry_secure_key]}")
       end
+      # rubocop:enable Metrics/AbcSize
     end
   end
 end

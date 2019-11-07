@@ -16,6 +16,7 @@ module Fawry
 
     private
 
+    # rubocop:disable Metrics/MethodLength
     def build_request
       case action
       when 'charge'
@@ -26,7 +27,12 @@ module Fawry
         self.class.include Requests::RefundRequest
         validate_refund_params!
         @request = build_refund_request
+      when 'payment_status'
+        self.class.include Requests::PaymentStatusRequest
+        validate_payment_status_params!
+        @request = build_payment_status_request
       end
+      # rubocop:enable Metrics/MethodLength
     end
   end
 end

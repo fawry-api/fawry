@@ -7,8 +7,10 @@ require 'fawry/fawry_request'
 require 'fawry/fawry_response'
 require 'fawry/requests/charge_request'
 require 'fawry/requests/refund_request'
+require 'fawry/requests/payment_status_request'
 require 'fawry/contracts/charge_request_contract'
 require 'fawry/contracts/refund_request_contract'
+require 'fawry/contracts/payment_status_request_contract'
 
 module Fawry
   class << self
@@ -80,6 +82,32 @@ module Fawry
     # plus some convenience methods e.g. success?
     def refund(params, opts = {})
       FawryRequest.new('refund', params, opts).fire_refund_request
+    end
+
+    # Sends a payment status request to Fawry API
+    # performs param validation and builds
+    # the request signature
+    #
+    # @param params [Hash] list of params to send to fawry
+    # required(:merchant_code).value(:string)
+    # required(:merchant_ref_number).value(:string)
+    # required(:fawry_secure_key).value(:string)
+    #
+    # @param opts [Hash] list of options to
+    # configure the request
+    # @option opts :sandbox [Boolean] whether to
+    # send the request to fawry sandbox env or not
+    # false by default
+    #
+    # @raise [Fawry::InvalidFawryRequest] raised when one
+    # or more of the params are invalid. the message
+    # specifices which params and why are they invalid
+    #
+    # @return [Fawry::FawryResponse] an object that
+    # has Fawry API response keys as instance methods
+    # plus some convenience methods e.g. success?
+    def payment_status(params, opts = {})
+      FawryRequest.new('payment_status', params, opts).fire_payment_status_request
     end
   end
 end

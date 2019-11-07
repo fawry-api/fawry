@@ -29,4 +29,16 @@ RSpec.describe Fawry do
       expect(response.status_code).to eq(200)
     end
   end
+
+  describe '.payment_status' do
+    it 'performs payment status request successfully' do
+      stub_request(:get, Fawry::Connection::FAWRY_BASE_URL + 'status')
+        .with(query: fawry_payment_status_params)
+        .to_return(status: 200, body: fawry_payment_status_response)
+
+      response = described_class.payment_status(payment_status_params)
+      expect(response.success?).to be true
+      expect(response.status_code).to eq(200)
+    end
+  end
 end

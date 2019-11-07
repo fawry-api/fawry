@@ -33,6 +33,7 @@ end
 # rubocop:enable Metrics/MethodLength
 
 # rubocop:disable Metrics/MethodLength
+# rubocop:disable Metrics/AbcSize
 def fawry_params
   {
     'merchantCode': params[:merchant_code],
@@ -50,6 +51,7 @@ def fawry_params
   }.compact
 end
 # rubocop:enable Metrics/MethodLength
+# rubocop:enable Metrics/AbcSize
 
 def fawry_api_response
   { 'type' => 'ChargeResponse',
@@ -80,6 +82,28 @@ def fawry_refund_response
   { "type": 'ResponseDataModel',
     "statusCode": 200,
     "statusDescription": 'Operation done successfully' }.to_json
+end
+
+def payment_status_params
+  { "merchant_code": 'merchant_code',
+    'merchant_ref_number': 'io5jxf3jp27kfh8m719arcqgw7izo7db',
+    'fawry_secure_key': 'fawry_secure_key' }
+end
+
+def fawry_payment_status_params
+  {
+    'merchantCode': payment_status_params[:merchant_code],
+    'merchantRefNumber': payment_status_params[:merchant_ref_number],
+    'signature': '7ce8b004c8f18391c273d94c7b3adde7bfa85466104d61c238a27d64fed0d99a'
+  }.compact
+end
+
+def fawry_payment_status_response
+  { 'type' => 'PaymentStatusResponse', 'referenceNumber' => '931849400',
+    'merchantRefNumber' => 'x0y9y9k17pk5sqlartlj07bcu8q8t7x3',
+    'paymentAmount' => 20.5, 'expirationTime' => 1_573_223_034_378, 'paymentMethod' => 'PAYATFAWRY',
+    'paymentStatus' => 'UNPAID',
+    'statusCode' => 200, 'statusDescription' => 'Operation done successfully' }.to_json
 end
 
 def fawry_api_failure_response

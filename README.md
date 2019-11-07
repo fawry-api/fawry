@@ -2,7 +2,7 @@
 A plug-and-play library that makes interfacing with Fawry's payment gateway API a breeze:
 - [Charge customers](https://github.com/amrrbakry/fawry#charge-customers)
 - [Refund customers](https://github.com/amrrbakry/fawry#refund-customers)
-- Get payment status _(Not yet implemented)_
+- [Get payment status](https://github.com/amrrbakry/fawry#get-payment-status)
 - Parse Fawry's service callback V2 _(Not yet implemented)_
 
 _Fawry's production and sandbox environments are supported._
@@ -60,6 +60,23 @@ res = Fawry.refund(params, sandbox: true)
 #                                               @status_description="Operation done successfully">
 
 res.success? # => true
+```
+
+###  Get Payment Status
+```ruby
+params = { "merchant_code": 'merchant_code',
+           "merchant_ref_number": 'ssshxb98phmyvm434es62kage3nsm2cj',
+           "fawry_secure_key": 'fawry_secure_key' }
+
+res = Fawry.payment_status(params, sandbox: true)
+ # => #<Fawry::FawryResponse:0x0000559974056898 @type="PaymentStatusResponse", @reference_number="931922417",
+ #                                              @merchant_ref_number="ssshxb98phmyvm434es62kage3nsm2cj",
+ #                                              @expiration_time=1573297736167, @status_code=200,
+ #                                              @status_description="Operation done successfully", @payment_amount=20,
+ #                                              @payment_method="PAYATFAWRY", @payment_status="UNPAID">
+
+res.success? # => true
+res.payment_status # => UNPAID
 ```
 ## Development
 
