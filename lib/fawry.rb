@@ -51,7 +51,7 @@ module Fawry
     # has Fawry API response keys as instance methods
     # plus some convenience methods e.g. success?
     def charge(params, opts = {})
-      FawryRequest.new('charge', params, opts).fire
+      FawryRequest.new('charge', params, opts).fire_charge_request
     end
 
     # Sends a refund request to Fawry API
@@ -79,7 +79,7 @@ module Fawry
     # has Fawry API response keys as instance methods
     # plus some convenience methods e.g. success?
     def refund(params, opts = {})
-      FawryRequest.new('refund', params, opts).fire
+      FawryRequest.new('refund', params, opts).fire_refund_request
     end
   end
 end

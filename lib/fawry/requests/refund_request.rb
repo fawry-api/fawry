@@ -5,7 +5,7 @@ require 'digest'
 module Fawry
   module Requests
     module RefundRequest
-      def fire
+      def fire_refund_request
         fawry_api_response = Connection.post(request[:path], request[:params], request[:body], request[:options])
         response_body = JSON.parse(fawry_api_response.body)
 

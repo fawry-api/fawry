@@ -7,7 +7,7 @@ RSpec.describe Fawry::Connection do
         .with(body: fawry_params)
         .to_return(status: 200, body: fawry_api_response)
 
-      Fawry::FawryRequest.new('charge', params, sandbox: false).fire
+      Fawry::FawryRequest.new('charge', params, sandbox: false).fire_charge_request
 
       expect(WebMock).to have_requested(:post, Fawry::Connection::FAWRY_BASE_URL + 'charge')
         .with(body: fawry_params)
@@ -20,7 +20,7 @@ RSpec.describe Fawry::Connection do
         .with(body: fawry_params)
         .to_return(status: 200, body: fawry_api_response)
 
-      Fawry::FawryRequest.new('charge', params, sandbox: true).fire
+      Fawry::FawryRequest.new('charge', params, sandbox: true).fire_charge_request
 
       expect(WebMock).to have_requested(:post, Fawry::Connection::FAWRY_SANDBOX_BASE_URL + 'charge')
         .with(body: fawry_params)

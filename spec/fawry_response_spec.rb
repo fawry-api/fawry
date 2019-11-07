@@ -7,7 +7,7 @@ RSpec.describe Fawry::FawryResponse do
         .with(body: fawry_params)
         .to_return(status: 200, body: fawry_api_response)
 
-      fawry_response = Fawry::FawryRequest.new('charge', params, {}).fire
+      fawry_response = Fawry::FawryRequest.new('charge', params, {}).fire_charge_request
 
       expect(fawry_response.class).to eq(Fawry::FawryResponse)
       expect(fawry_response.success?).to be true
@@ -18,7 +18,7 @@ RSpec.describe Fawry::FawryResponse do
         .with(body: fawry_params)
         .to_return(status: 200, body: fawry_api_response)
 
-      fawry_response = Fawry::FawryRequest.new('charge', params, {}).fire
+      fawry_response = Fawry::FawryRequest.new('charge', params, {}).fire_charge_request
 
       expect(fawry_response.class).to eq(Fawry::FawryResponse)
       expect(fawry_response.status_code).to eq(200)
@@ -36,7 +36,7 @@ RSpec.describe Fawry::FawryResponse do
         .with(body: fawry_params)
         .to_return(status: 200, body: fawry_api_response)
 
-      fawry_response = Fawry::FawryRequest.new('charge', params, {}).fire
+      fawry_response = Fawry::FawryRequest.new('charge', params, {}).fire_charge_request
 
       expect(fawry_response.success?).to be true
       expect(fawry_response.failure?).to be false
@@ -49,7 +49,7 @@ RSpec.describe Fawry::FawryResponse do
         .with(body: fawry_params)
         .to_return(status: 200, body: fawry_api_failure_response)
 
-      fawry_response = Fawry::FawryRequest.new('charge', params, {}).fire
+      fawry_response = Fawry::FawryRequest.new('charge', params, {}).fire_charge_request
 
       expect(fawry_response.failure?).to be true
       expect(fawry_response.success?).to be false
@@ -62,7 +62,7 @@ RSpec.describe Fawry::FawryResponse do
         .with(body: fawry_params)
         .to_return(status: 200, body: fawry_api_response)
 
-      fawry_response = Fawry::FawryRequest.new('charge', params, {}).fire
+      fawry_response = Fawry::FawryRequest.new('charge', params, {}).fire_charge_request
 
       expect(fawry_response.fawry_api_response_body).to eq(JSON.parse(fawry_api_response))
     end

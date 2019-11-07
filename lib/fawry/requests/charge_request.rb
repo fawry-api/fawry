@@ -7,7 +7,7 @@ module Fawry
     module ChargeRequest
       DEFAULTS = { payment_method: 'PAYATFAWRY', currency_code: 'EGP' }.freeze
 
-      def fire
+      def fire_charge_request
         fawry_api_response = Connection.post(request[:path], request[:params], request[:body], request[:options])
         response_body = JSON.parse(fawry_api_response.body)
 

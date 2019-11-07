@@ -18,7 +18,7 @@ RSpec.describe Fawry::FawryRequest do
           .with(body: fawry_params)
           .to_return(status: 200, body: fawry_api_response)
 
-        described_class.new('charge', params, {}).fire
+        described_class.new('charge', params, {}).fire_charge_request
 
         expect(WebMock).to have_requested(:post, Fawry::Connection::FAWRY_BASE_URL + 'charge')
           .with(body: fawry_params)
@@ -43,7 +43,7 @@ RSpec.describe Fawry::FawryRequest do
           .with(body: fawry_refund_params)
           .to_return(status: 200, body: fawry_refund_response)
 
-        described_class.new('refund', refund_params, {}).fire
+        described_class.new('refund', refund_params, {}).fire_refund_request
 
         expect(WebMock).to have_requested(:post, Fawry::Connection::FAWRY_BASE_URL + 'refund')
           .with(body: fawry_refund_params)
