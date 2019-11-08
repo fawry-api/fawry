@@ -78,6 +78,26 @@ res = Fawry.payment_status(params, sandbox: true)
 res.success? # => true
 res.payment_status # => UNPAID
 ```
+
+###  Parse Fawry service callback v2
+```ruby
+callback_params = { "requestId": 'c72827d084ea4b88949d91dd2db4996e', "fawryRefNumber": '970177',
+                    "merchantRefNumber": '9708f1cea8b5426cb57922df51b7f790',
+                    "customerMobile": '01004545545', "customerMail": 'fawry@fawry.com',
+                    "paymentAmount": 152.00, "orderAmount": 150.00, "fawryFees": 2.00,
+                    "shippingFees": '', "orderStatus": 'NEW', "paymentMethod": 'PAYATFAWRY',
+                    "messageSignature": 'b0175565323e464b01dc9407160368af5568196997fb6e379374a4f4fbbcf587',
+                    "orderExpiryDate": 1_533_554_719_314,
+                    "orderItems": [{ "itemCode": 'e6aacbd5a498487ab1a10ae71061535d', "price": 150.0, "quantity": 1 }] }
+
+fawry_callback = Fawry.parse_callback(callback_params, 'fawry_secure_key')
+# <Fawry::FawryCallback:0x000056339ac43730 @request_id="c72827d084ea4b88949d91dd2db4996e", @fawry_ref_number="970177",
+#                                          @merchant_ref_number="9708f1cea8b5426cb57922df51b7f790", @customer_mobile="01004545545",
+#                                          @customer_mail="fawry@fawry.com", @order_status="NEW", @order_amount=150.0, @fawry_fees=2.0, ...>
+
+fawry_callback.fawry_ref_number # => 970177
+fawry_callback.order_status # => NEW
+```
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.

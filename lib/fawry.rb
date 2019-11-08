@@ -3,8 +3,10 @@
 require 'fawry/version'
 require 'fawry/connection'
 require 'fawry/errors'
+require 'fawry/utils'
 require 'fawry/fawry_request'
 require 'fawry/fawry_response'
+require 'fawry/fawry_callback'
 require 'fawry/requests/charge_request'
 require 'fawry/requests/refund_request'
 require 'fawry/requests/payment_status_request'
@@ -108,6 +110,26 @@ module Fawry
     # plus some convenience methods e.g. success?
     def payment_status(params, opts = {})
       FawryRequest.new('payment_status', params, opts).fire_payment_status_request
+    end
+
+    # Parses Fawry callback v2 into
+    # FawryCallback object with callback
+    # params as instance methods
+    #
+    # @param params [Hash] list of params sent
+    # from fawry server callback
+    #
+    # @param opts [Hash] list of options to
+    # configure the request. currently no
+    # options available
+    #
+    # @raise [Fawry::InvalidSignatureError] raised when
+    # request signature cannot be verified
+    #
+    # @return [Fawry::FawryCallback] an object that
+    # has Fawry server callback params' keys as instance methods
+    def parse_callback(params, fawry_secure_key, opts = {})
+      FawryCallback.new(params, fawry_secure_key, opts).parse
     end
   end
 end
