@@ -37,7 +37,7 @@ module Fawry
 
       def validate_payment_status_params!
         contract = Contracts::PaymentStatusRequestContract.new.call(request_params)
-        raise InvalidFawryRequest, contract.errors.to_h if contract.failure?
+        raise InvalidFawryRequestError, contract.errors.to_h if contract.failure?
       end
 
       def payment_status_request_signature

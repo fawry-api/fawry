@@ -39,7 +39,7 @@ module Fawry
 
       def validate_refund_params!
         contract = Contracts::RefundRequestContract.new.call(request_params)
-        raise InvalidFawryRequest, contract.errors.to_h if contract.failure?
+        raise InvalidFawryRequestError, contract.errors.to_h if contract.failure?
       end
 
       def refund_request_signature

@@ -45,7 +45,7 @@ module Fawry
     # false by default
     # Example: `Fawry.charge(params, sandbox: true)`
     #
-    # @raise [Fawry::InvalidFawryRequest] raised when one
+    # @raise [Fawry::InvalidFawryRequestError] raised when one
     # or more of the params are invalid. the message
     # specifices which params and why are they invalid
     #
@@ -73,7 +73,7 @@ module Fawry
     # send the request to fawry sandbox env or not
     # false by default
     #
-    # @raise [Fawry::InvalidFawryRequest] raised when one
+    # @raise [Fawry::InvalidFawryRequestError] raised when one
     # or more of the params are invalid. the message
     # specifices which params and why are they invalid
     #
@@ -99,7 +99,7 @@ module Fawry
     # send the request to fawry sandbox env or not
     # false by default
     #
-    # @raise [Fawry::InvalidFawryRequest] raised when one
+    # @raise [Fawry::InvalidFawryRequestError] raised when one
     # or more of the params are invalid. the message
     # specifices which params and why are they invalid
     #

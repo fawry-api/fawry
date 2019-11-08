@@ -53,7 +53,7 @@ module Fawry
 
       def validate_charge_params!
         contract = Contracts::ChargeRequestContract.new.call(request_params)
-        raise InvalidFawryRequest, contract.errors.to_h if contract.failure?
+        raise InvalidFawryRequestError, contract.errors.to_h if contract.failure?
       end
 
       def charge_items
