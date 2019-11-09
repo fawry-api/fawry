@@ -1,3 +1,5 @@
+[![CircleCI](https://circleci.com/gh/fawry-api/fawry.svg?style=svg)](https://circleci.com/gh/fawry-api/fawry)
+
 # Fawry
 A plug-and-play library that makes interfacing with Fawry's payment gateway API a breeze:
 - [Charge customers](https://github.com/fawry-api/fawry#charge-customers)
