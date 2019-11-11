@@ -100,6 +100,12 @@ fawry_callback = Fawry.parse_callback(callback_params, 'fawry_secure_key')
 fawry_callback.fawry_ref_number # => 970177
 fawry_callback.order_status # => NEW
 ```
+
+## TODO:
+- Read configuration keys (merchant code, secure key) from env vars
+- Add public API documentation to README
+- Add option to raise exception on request failure
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
