@@ -8,6 +8,7 @@ A plug-and-play library that makes interfacing with Fawry's payment gateway API 
 - [Refund customers](https://github.com/fawry-api/fawry#refund-customers)
 - [Get payment status](https://github.com/fawry-api/fawry#get-payment-status)
 - [Parse Fawry's service callback V2](https://github.com/fawry-api/fawry#parse-fawry-service-callback-v2)
+- [Configuration keys as environment variables](https://github.com/fawry-api/fawry#configuration-keys-as-environment-variables)
 
 _Fawry's production and sandbox environments are supported._
 
@@ -54,12 +55,6 @@ res = Fawry.charge(params, sandbox: true)
 res.success? # => true
 res.reference_number # => 931600239
 ```
-
-#### Configuration keys as environment variables
-
-Fawry configuration keys such as merchant code and secure key can be sent with the params (`merchant_code`, `fawry_secure_key` ) to the `charge`, `refund`, `payment_status` methods, _or_ they can be set as environment variables: (`FAWRY_MERCHANT_CODE`, `FAWRY_SECURE_KEY`).
-
-
 
 ###  Refund Customers
 
@@ -116,6 +111,10 @@ fawry_callback = Fawry.parse_callback(callback_params, {})
 fawry_callback.fawry_ref_number # => 970177
 fawry_callback.order_status # => NEW
 ```
+
+### Configuration keys as environment variables
+
+Fawry configuration keys such as merchant code and secure key can be sent with the params (`merchant_code`, `fawry_secure_key` ) to the charge, refund, payment_status methods, _or_ they can be set as environment variables: (`FAWRY_MERCHANT_CODE`, `FAWRY_SECURE_KEY`).
 
 ## TODO:
 
