@@ -68,14 +68,12 @@ module Fawry
         request_params[:charge_items].each { |hash| hash[:itemId] = hash.delete(:item_id) }
       end
 
-      # rubocop:disable Metrics/AbcSize
       def charge_request_signature
         Digest::SHA256.hexdigest("#{fawry_merchant_code}#{request_params[:merchant_ref_num]}"\
                                  "#{request_params[:customer_profile_id]}#{request_params[:payment_method]}"\
                                  "#{format('%<amount>.2f', amount: request_params[:amount])}"\
                                  "#{request_params[:card_token]}#{fawry_secure_key}")
       end
-      # rubocop:enable Metrics/AbcSize
     end
   end
 end
