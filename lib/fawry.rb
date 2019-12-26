@@ -128,8 +128,8 @@ module Fawry
     #
     # @return [Fawry::FawryCallback] an object that
     # has Fawry server callback params' keys as instance methods
-    def parse_callback(params, fawry_secure_key, opts = {})
-      FawryCallback.new(params, fawry_secure_key, opts).parse
+    def parse_callback(params, opts = {})
+      FawryCallback.new(params, opts).parse
     end
   end
 end

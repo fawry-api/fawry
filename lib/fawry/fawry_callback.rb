@@ -6,9 +6,9 @@ module Fawry
 
     attr_reader :callback_params, :fawry_secure_key, :options
 
-    def initialize(callback_params, fawry_secure_key, opts)
+    def initialize(callback_params, opts)
       @callback_params = callback_params
-      @fawry_secure_key = fawry_secure_key
+      @fawry_secure_key = ENV.fetch('FAWRY_SECURE_KEY')
       @options = opts
     end
 
