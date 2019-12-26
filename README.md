@@ -114,7 +114,9 @@ fawry_callback.order_status # => NEW
 
 ### Configuration keys as environment variables
 
-Fawry configuration keys such as merchant code and secure key can be sent with the params (`merchant_code`, `fawry_secure_key` ) to the charge, refund, payment_status methods, _or_ they can be set as environment variables: (`FAWRY_MERCHANT_CODE`, `FAWRY_SECURE_KEY`).
+Fawry configuration keys such as merchant code and secure key can be sent with the params (`merchant_code`, `fawry_secure_key` ) to the **charge**, **refund**, **payment_status** methods, _or_ they can be set as environment variables: (`FAWRY_MERCHANT_CODE`, `FAWRY_SECURE_KEY`).
+
+To **parse** fawry callback, you _must_ set the env var `FAWRY_SECURE_KEY`.
 
 ## TODO:
 
