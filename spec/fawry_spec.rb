@@ -44,7 +44,9 @@ RSpec.describe Fawry do
 
   describe '.parse_callback' do
     it 'parses fawry service callback into FawryCallback' do
-      fawry_callback = described_class.parse_callback(fawry_callback_params, 'fawry_secure_key')
+      ENV['FAWRY_SECURE_KEY'] = 'fawry_secure_key'
+
+      fawry_callback = described_class.parse_callback(fawry_callback_params, {})
       expect(fawry_callback.class).to eq(Fawry::FawryCallback)
       expect(fawry_callback.order_status).to eq('NEW')
     end

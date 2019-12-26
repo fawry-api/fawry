@@ -33,7 +33,7 @@ module Fawry
       # rubocop:disable Metrics/MethodLength
       def charge_request_transformed_params
         {
-          merchantCode: request_params[:merchant_code],
+          merchantCode: fawry_merchant_code,
           merchantRefNum: request_params[:merchant_ref_num],
           customerProfileId: request_params[:customer_profile_id],
           cardToken: request_params[:card_token],
@@ -51,6 +51,14 @@ module Fawry
       # rubocop:enable Metrics/MethodLength
       # rubocop:enable Metrics/AbcSize
 
+      def fawry_merchant_code
+        ENV.fetch('FAWRY_MERCHANT_CODE') { request_params[:merchant_code] }
+      end
+
+      def fawry_secure_key
+        ENV.fetch('FAWRY_SECURE_KEY') { request_params[:fawry_secure_key] }
+      end
+
       def validate_charge_params!
         contract = Contracts::ChargeRequestContract.new.call(request_params)
         raise InvalidFawryRequestError, contract.errors.to_h if contract.failure?
@@ -60,14 +68,12 @@ module Fawry
         request_params[:charge_items].each { |hash| hash[:itemId] = hash.delete(:item_id) }
       end
 
-      # rubocop:disable Metrics/AbcSize
       def charge_request_signature
-        Digest::SHA256.hexdigest("#{request_params[:merchant_code]}#{request_params[:merchant_ref_num]}"\
+        Digest::SHA256.hexdigest("#{fawry_merchant_code}#{request_params[:merchant_ref_num]}"\
                                  "#{request_params[:customer_profile_id]}#{request_params[:payment_method]}"\
                                  "#{format('%<amount>.2f', amount: request_params[:amount])}"\
-                                 "#{request_params[:card_token]}#{request_params[:fawry_secure_key]}")
+                                 "#{request_params[:card_token]}#{fawry_secure_key}")
       end
-      # rubocop:enable Metrics/AbcSize
     end
   end
 end

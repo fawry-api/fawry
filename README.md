@@ -1,11 +1,14 @@
 [![CircleCI](https://circleci.com/gh/fawry-api/fawry.svg?style=svg)](https://circleci.com/gh/fawry-api/fawry)
 
 # Fawry
+
 A plug-and-play library that makes interfacing with Fawry's payment gateway API a breeze:
+
 - [Charge customers](https://github.com/fawry-api/fawry#charge-customers)
 - [Refund customers](https://github.com/fawry-api/fawry#refund-customers)
 - [Get payment status](https://github.com/fawry-api/fawry#get-payment-status)
 - [Parse Fawry's service callback V2](https://github.com/fawry-api/fawry#parse-fawry-service-callback-v2)
+- [Configuration keys as environment variables](https://github.com/fawry-api/fawry#configuration-keys-as-environment-variables)
 
 _Fawry's production and sandbox environments are supported._
 
@@ -26,7 +29,9 @@ Or install it yourself as:
     $ gem install fawry
 
 ## Usage
+
 ### Charge customers
+
 ```ruby
 params = { "merchant_code": 'merchant_code',
            "merchant_ref_num": 'io5jxf3jp27kfh8m719arcqgw7izo7db',
@@ -50,7 +55,9 @@ res = Fawry.charge(params, sandbox: true)
 res.success? # => true
 res.reference_number # => 931600239
 ```
+
 ###  Refund Customers
+
 ```ruby
 params = { "merchant_code": 'merchant_code',
            "reference_number": '931337410',
@@ -65,6 +72,7 @@ res.success? # => true
 ```
 
 ###  Get Payment Status
+
 ```ruby
 params = { "merchant_code": 'merchant_code',
            "merchant_ref_number": 'ssshxb98phmyvm434es62kage3nsm2cj',
@@ -82,7 +90,9 @@ res.payment_status # => UNPAID
 ```
 
 ###  Parse Fawry service callback v2
+
 ```ruby
+# params sent from fawry server
 callback_params = { "requestId": 'c72827d084ea4b88949d91dd2db4996e', "fawryRefNumber": '970177',
                     "merchantRefNumber": '9708f1cea8b5426cb57922df51b7f790',
                     "customerMobile": '01004545545', "customerMail": 'fawry@fawry.com',
@@ -92,7 +102,8 @@ callback_params = { "requestId": 'c72827d084ea4b88949d91dd2db4996e', "fawryRefNu
                     "orderExpiryDate": 1_533_554_719_314,
                     "orderItems": [{ "itemCode": 'e6aacbd5a498487ab1a10ae71061535d', "price": 150.0, "quantity": 1 }] }
 
-fawry_callback = Fawry.parse_callback(callback_params, 'fawry_secure_key')
+# FAWRY_SECURE_KEY env var must be set
+fawry_callback = Fawry.parse_callback(callback_params, {})
 # <Fawry::FawryCallback:0x000056339ac43730 @request_id="c72827d084ea4b88949d91dd2db4996e", @fawry_ref_number="970177",
 #                                          @merchant_ref_number="9708f1cea8b5426cb57922df51b7f790", @customer_mobile="01004545545",
 #                                          @customer_mail="fawry@fawry.com", @order_status="NEW", @order_amount=150.0, @fawry_fees=2.0, ...>
@@ -101,8 +112,14 @@ fawry_callback.fawry_ref_number # => 970177
 fawry_callback.order_status # => NEW
 ```
 
+### Configuration keys as environment variables
+
+Fawry configuration keys such as merchant code and secure key can be sent with the params (`merchant_code`, `fawry_secure_key` ) to the **charge**, **refund**, **payment_status** methods, _or_ they can be set as environment variables: (`FAWRY_MERCHANT_CODE`, `FAWRY_SECURE_KEY`).
+
+To **parse** fawry callback, you _must_ set the env var `FAWRY_SECURE_KEY`.
+
 ## TODO:
-- Read configuration keys (merchant code, secure key) from env vars
+
 - Add public API documentation to README
 - Add option to raise exception on request failure
 
