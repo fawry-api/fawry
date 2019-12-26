@@ -21,19 +21,19 @@ module Fawry
     # the request signature
     #
     # @param params [Hash] list of params to send to fawry
-    # required(:merchant_code).value(:string)
     # required(:merchant_ref_num).value(:string)
     # required(:customer_profile_id).value(:string)
     # required(:amount).value(:decimal)
     # required(:description).value(:string)
     # required(:customer_mobile).value(:string)
-    # required(:fawry_secure_key).value(:string)
     # required(:charge_items).array(:hash) do
     #   required(:item_id).value(:string)
     #   required(:description).value(:string)
     #   required(:price).value(:decimal)
     #   required(:quantity).value(:integer)
     # end
+    # optional(:merchant_code).value(:string)
+    # optional(:fawry_secure_key).value(:string)
     # optional(:currency_code).value(:string)
     # optional(:card_token).value(:string)
     # optional(:customer_email).value(:string)
@@ -63,10 +63,10 @@ module Fawry
     # the request signature
     #
     # @param params [Hash] list of params to send to fawry
-    # required(:merchant_code).value(:string)
     # required(:reference_number).value(:string)
     # required(:refund_amount).value(:decimal)
-    # required(:fawry_secure_key).value(:string)
+    # optional(:merchant_code).value(:string)
+    # optional(:fawry_secure_key).value(:string)
     # optional(:reason).value(:string)
     #
     # @param opts [Hash] list of options to
@@ -91,9 +91,9 @@ module Fawry
     # the request signature
     #
     # @param params [Hash] list of params to send to fawry
-    # required(:merchant_code).value(:string)
     # required(:merchant_ref_number).value(:string)
-    # required(:fawry_secure_key).value(:string)
+    # optional(:merchant_code).value(:string)
+    # optional(:fawry_secure_key).value(:string)
     #
     # @param opts [Hash] list of options to
     # configure the request

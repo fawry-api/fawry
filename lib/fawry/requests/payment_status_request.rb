@@ -29,10 +29,18 @@ module Fawry
 
       def payment_status_request_transformed_params
         {
-          merchantCode: request_params[:merchant_code],
+          merchantCode: fawry_merchant_code,
           merchantRefNumber: request_params[:merchant_ref_number],
           signature: payment_status_request_signature
         }.compact
+      end
+
+      def fawry_merchant_code
+        ENV.fetch('FAWRY_MERCHANT_CODE') { request_params[:merchant_code] }
+      end
+
+      def fawry_secure_key
+        ENV.fetch('FAWRY_SECURE_KEY') { request_params[:fawry_secure_key] }
       end
 
       def validate_payment_status_params!
@@ -41,8 +49,8 @@ module Fawry
       end
 
       def payment_status_request_signature
-        Digest::SHA256.hexdigest("#{request_params[:merchant_code]}#{request_params[:merchant_ref_number]}"\
-                                 "#{request_params[:fawry_secure_key]}")
+        Digest::SHA256.hexdigest("#{fawry_merchant_code}#{request_params[:merchant_ref_number]}"\
+                                 "#{fawry_secure_key}")
       end
     end
   end

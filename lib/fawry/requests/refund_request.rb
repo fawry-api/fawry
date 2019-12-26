@@ -29,12 +29,20 @@ module Fawry
 
       def refund_request_transformed_params
         {
-          merchantCode: request_params[:merchant_code],
+          merchantCode: fawry_merchant_code,
           referenceNumber: request_params[:reference_number],
           refundAmount: request_params[:refund_amount],
           reason: request_params[:reason],
           signature: refund_request_signature
         }.compact
+      end
+
+      def fawry_merchant_code
+        ENV.fetch('FAWRY_MERCHANT_CODE') { request_params[:merchant_code] }
+      end
+
+      def fawry_secure_key
+        ENV.fetch('FAWRY_SECURE_KEY') { request_params[:fawry_secure_key] }
       end
 
       def validate_refund_params!
@@ -43,9 +51,9 @@ module Fawry
       end
 
       def refund_request_signature
-        Digest::SHA256.hexdigest("#{request_params[:merchant_code]}#{request_params[:reference_number]}"\
+        Digest::SHA256.hexdigest("#{fawry_merchant_code}#{request_params[:reference_number]}"\
                                  "#{format('%<refund_amount>.2f', refund_amount: request_params[:refund_amount])}"\
-                                 "#{request_params[:reason]}#{request_params[:fawry_secure_key]}")
+                                 "#{request_params[:reason]}#{fawry_secure_key}")
       end
     end
   end
