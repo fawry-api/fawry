@@ -2,6 +2,8 @@
 
 # Fawry
 
+**Disclaimer:** we are _not officially affilated_ with the _Fawry_ company.
+
 A plug-and-play library that makes interfacing with Fawry's payment gateway API a breeze:
 
 - [Charge customers](https://github.com/fawry-api/fawry#charge-customers)
