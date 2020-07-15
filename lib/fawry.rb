@@ -10,12 +10,12 @@ require 'fawry/fawry_callback'
 require 'fawry/requests/charge_request'
 require 'fawry/requests/refund_request'
 require 'fawry/requests/payment_status_request'
-require 'fawry/requests/card_token_request'
+require 'fawry/requests/create_card_token_request'
 require 'fawry/requests/list_tokens_request'
 require 'fawry/contracts/charge_request_contract'
 require 'fawry/contracts/refund_request_contract'
 require 'fawry/contracts/payment_status_request_contract'
-require 'fawry/contracts/card_token_request_contract'
+require 'fawry/contracts/create_card_token_request_contract'
 require 'fawry/contracts/list_tokens_request_contract'
 
 module Fawry
@@ -139,8 +139,8 @@ module Fawry
     # has Fawry API response keys as instance methods
     # plus some convenience methods e.g. success?
 
-    def card_token(params, opts = {})
-      FawryRequest.new('create_token', params, opts).fire_card_token_request
+    def create_card_token(params, opts = {})
+      FawryRequest.new('create_card_token', params, opts).fire_create_card_token_request
     end
 
     # Sends a card token request to Fawry API

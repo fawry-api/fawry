@@ -31,10 +31,10 @@ module Fawry
         self.class.include Requests::PaymentStatusRequest
         validate_payment_status_params!
         @request = build_payment_status_request
-      when 'create_token'
-        self.class.include Requests::CardTokenRequest
+      when 'create_card_token'
+        self.class.include Requests::CreateCardTokenRequest
         validate_card_token_params!
-        @request = build_card_token_request
+        @request = build_create_card_token_request
       when 'list_tokens'
         self.class.include Requests::ListTokensRequest
         validate_list_tokens_params!

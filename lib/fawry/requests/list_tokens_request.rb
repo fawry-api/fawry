@@ -30,13 +30,13 @@ module Fawry
       def list_tokens_request_transformed_params
         {
           merchantCode: fawry_merchant_code,
-          customerProfileId: request_params[:customerProfileId],
+          customerProfileId: request_params[:customer_profile_id],
           signature: list_tokens_request_signature
         }.compact
       end
 
       def fawry_merchant_code
-        ENV.fetch('FAWRY_MERCHANT_CODE') { request_params[:merchantCode] }
+        ENV.fetch('FAWRY_MERCHANT_CODE') { request_params[:merchant_code] }
       end
 
       def fawry_secure_key
@@ -49,7 +49,7 @@ module Fawry
       end
 
       def list_tokens_request_signature
-        Digest::SHA256.hexdigest("#{fawry_merchant_code}#{request_params[:customerProfileId]}"\
+        Digest::SHA256.hexdigest("#{fawry_merchant_code}#{request_params[:customer_profile_id]}"\
                                  "#{fawry_secure_key}")
       end
     end

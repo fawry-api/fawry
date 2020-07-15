@@ -4,25 +4,25 @@ require 'dry-validation'
 
 module Fawry
   module Contracts
-    class CardTokenRequestContract < Dry::Validation::Contract
+    class CreateCardTokenRequestContract < Dry::Validation::Contract
       params do
-        required(:customerProfileId).value(:string)
-        required(:customerMobile).value(:string)
-        required(:merchantCode).value(:string)
-        required(:customerEmail).value(:string)
-        required(:cardNumber).value(:string)
-        required(:expiryYear).value(:string)
-        required(:expiryMonth).value(:string)
+        required(:customer_profile_id).value(:string)
+        required(:customer_mobile).value(:string)
+        required(:merchant_code).value(:string)
+        required(:customer_email).value(:string)
+        required(:card_number).value(:string)
+        required(:expiry_year).value(:string)
+        required(:expiry_month).value(:string)
         required(:cvv).value(:string)
       end
 
-      rule(:customerEmail) do
+      rule(:customer_email) do
         unless /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i.match?(value)
           key? && key.failure('has invalid format')
         end
       end
 
-      rule(:merchantCode) do
+      rule(:merchant_code) do
         if ENV['FAWRY_MERCHANT_CODE'].nil? && value.nil?
           key(:merchant_code).failure('fawry merchant code is required as a param or an env var')
         end
