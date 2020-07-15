@@ -16,7 +16,7 @@ module Fawry
 
       def build_payment_status_request
         {
-          path: 'status',
+          path: 'payments/status',
           params: payment_status_request_transformed_params,
           body: {},
           options: options

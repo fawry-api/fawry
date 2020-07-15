@@ -5,9 +5,9 @@ require 'json'
 
 module Fawry
   class Connection
-    FAWRY_BASE_URL = 'https://www.atfawry.com/ECommerceWeb/Fawry/payments/'
+    FAWRY_BASE_URL = 'https://www.atfawry.com/ECommerceWeb/Fawry/'
 
-    FAWRY_SANDBOX_BASE_URL = 'https://atfawry.fawrystaging.com//ECommerceWeb/Fawry/payments/'
+    FAWRY_SANDBOX_BASE_URL = 'https://atfawry.fawrystaging.com//ECommerceWeb/Fawry/'
 
     class << self
       def post(path, params, body, options)

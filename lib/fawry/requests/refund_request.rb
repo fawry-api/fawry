@@ -16,7 +16,7 @@ module Fawry
 
       def build_refund_request
         {
-          path: 'refund',
+          path: 'payments/refund',
           params: {},
           body: refund_request_transformed_params,
           options: options
