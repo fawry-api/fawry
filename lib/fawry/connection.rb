@@ -30,6 +30,17 @@ module Fawry
         end
       end
 
+      def delete(path, params, body, options)
+        conn = options[:sandbox] ? sandbox_connection : connection
+
+        conn.delete(path) do |request|
+          request.params = params
+          request.body = body.to_json
+          # Fawry doesn't understand encoded params
+          request.options = request.options.merge(params_encoder: ParamsSpecialEncoder)
+        end
+      end
+
       private
 
       def connection

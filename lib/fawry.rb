@@ -12,11 +12,13 @@ require 'fawry/requests/refund_request'
 require 'fawry/requests/payment_status_request'
 require 'fawry/requests/create_card_token_request'
 require 'fawry/requests/list_tokens_request'
+require 'fawry/requests/delete_token_request'
 require 'fawry/contracts/charge_request_contract'
 require 'fawry/contracts/refund_request_contract'
 require 'fawry/contracts/payment_status_request_contract'
 require 'fawry/contracts/create_card_token_request_contract'
 require 'fawry/contracts/list_tokens_request_contract'
+require 'fawry/contracts/delete_token_request_contract'
 
 module Fawry
   class << self
@@ -121,9 +123,14 @@ module Fawry
     # the request signature
     #
     # @param params [Hash] list of params to send to fawry
-    # required(:merchant_ref_number).value(:string)
-    # optional(:merchant_code).value(:string)
-    # optional(:fawry_secure_key).value(:string)
+    # required(:customer_profile_id).value(:string)
+    # required(:customer_mobile).value(:string)
+    # required(:merchant_code).value(:string)
+    # required(:customer_email).value(:string)
+    # required(:card_number).value(:string)
+    # required(:expiry_year).value(:string)
+    # required(:expiry_month).value(:string)
+    # required(:cvv).value(:string)
     #
     # @param opts [Hash] list of options to
     # configure the request
@@ -143,13 +150,13 @@ module Fawry
       FawryRequest.new('create_card_token', params, opts).fire_create_card_token_request
     end
 
-    # Sends a card token request to Fawry API
+    # Sends a list tokens request to Fawry API
     # performs param validation and builds
     # the request signature
     #
     # @param params [Hash] list of params to send to fawry
-    # required(:merchant_ref_number).value(:string)
-    # optional(:merchant_code).value(:string)
+    # required(:merchant_code).value(:string)
+    # required(:customer_profile_id).value(:string)
     # optional(:fawry_secure_key).value(:string)
     #
     # @param opts [Hash] list of options to
@@ -168,6 +175,33 @@ module Fawry
 
     def list_tokens(params, opts = {})
       FawryRequest.new('list_tokens', params, opts).fire_list_tokens_request
+    end
+
+    # Sends delete token request to Fawry API
+    # performs param validation and builds
+    # the request signature
+    #
+    # @param params [Hash] list of params to send to fawry
+    # required(:customer_profile_id).value(:string)
+    # optional(:merchant_code).value(:string)
+    # optional(:fawry_secure_key).value(:string)
+    #
+    # @param opts [Hash] list of options to
+    # configure the request
+    # @option opts :sandbox [Boolean] whether to
+    # send the request to fawry sandbox env or not
+    # false by default
+    #
+    # @raise [Fawry::InvalidFawryRequestError] raised when one
+    # or more of the params are invalid. the message
+    # specifices which params and why are they invalid
+    #
+    # @return [Fawry::FawryResponse] an object that
+    # has Fawry API response keys as instance methods
+    # plus some convenience methods e.g. success?
+
+    def delete_token(params, opts = {})
+      FawryRequest.new('delete_token', params, opts).fire_delete_token_request
     end
 
     # Parses Fawry callback v2 into

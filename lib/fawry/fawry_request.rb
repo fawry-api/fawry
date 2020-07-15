@@ -39,6 +39,10 @@ module Fawry
         self.class.include Requests::ListTokensRequest
         validate_list_tokens_params!
         @request = build_list_tokens_request
+      when 'delete_token'
+        self.class.include Requests::DeleteTokenRequest
+        validate_delete_token_params!
+        @request = build_delete_token_request
       end
       # rubocop:enable Metrics/MethodLength
     end
