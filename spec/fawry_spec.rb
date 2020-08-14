@@ -7,7 +7,7 @@ RSpec.describe Fawry do
 
   describe '.charge' do
     it 'performs charge request successfully' do
-      stub_request(:post, Fawry::Connection::FAWRY_BASE_URL + 'charge')
+      stub_request(:post, Fawry::Connection::FAWRY_BASE_URL + 'payments/charge')
         .with(body: fawry_params)
         .to_return(status: 200, body: fawry_api_response)
 
@@ -20,7 +20,7 @@ RSpec.describe Fawry do
 
   describe '.refund' do
     it 'performs refund request successfully' do
-      stub_request(:post, Fawry::Connection::FAWRY_BASE_URL + 'refund')
+      stub_request(:post, Fawry::Connection::FAWRY_BASE_URL + 'payments/refund')
         .with(body: fawry_refund_params)
         .to_return(status: 200, body: fawry_refund_response)
 
@@ -32,7 +32,7 @@ RSpec.describe Fawry do
 
   describe '.payment_status' do
     it 'performs payment status request successfully' do
-      stub_request(:get, Fawry::Connection::FAWRY_BASE_URL + 'status')
+      stub_request(:get, Fawry::Connection::FAWRY_BASE_URL + 'payments/status')
         .with(query: fawry_payment_status_params)
         .to_return(status: 200, body: fawry_payment_status_response)
 
