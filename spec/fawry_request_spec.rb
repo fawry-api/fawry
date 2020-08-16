@@ -62,9 +62,9 @@ RSpec.describe Fawry::FawryRequest do
   context 'refund request' do
     describe '.new' do
       it 'builds the correct refund request' do
-        fawry_request = described_class.new('efund', refund_params, {})
+        fawry_request = described_class.new('refund', refund_params, {})
         expect(fawry_request.class.included_modules.include?(Fawry::Requests::RefundRequest)).to be true
-        expect(fawry_request.action).to eq('payments/refund')
+        expect(fawry_request.action).to eq('refund')
         expect(fawry_request.request[:path]).to eq('payments/refund')
         expect(fawry_request.request[:body].keys).to eq(fawry_refund_params.keys)
       end
@@ -78,7 +78,7 @@ RSpec.describe Fawry::FawryRequest do
 
         described_class.new('refund', refund_params, {}).fire_refund_request
 
-        expect(WebMock).to have_requested(:post, Fawry::Connection::FAWRY_BASE_URL + '/payments/refund')
+        expect(WebMock).to have_requested(:post, Fawry::Connection::FAWRY_BASE_URL + 'payments/refund')
           .with(body: fawry_refund_params)
       end
     end
@@ -99,7 +99,7 @@ RSpec.describe Fawry::FawryRequest do
 
         described_class.new('charge', params_without_secure_key, {}).fire_charge_request
 
-        expect(WebMock).to have_requested(:post, Fawry::Connection::FAWRY_BASE_URL + '/payments/charge')
+        expect(WebMock).to have_requested(:post, Fawry::Connection::FAWRY_BASE_URL + 'payments/charge')
           .with(body: fawry_params)
       end
     end
