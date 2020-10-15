@@ -2,37 +2,37 @@
 
 # Fawry
 
-**Disclaimer:** we are _not officially affilated_ with the _Fawry_ company.
+**تنصل:** نحن لسنا تابعين رسميًا لشركة فوري.
 
-A plug-and-play library that makes interfacing with Fawry's payment gateway API a breeze:
+مكتبة التوصيل والتشغيل التي تجعل التعامل مع بوابة الدفع الخاصة بـ Fawry أمرًا سهلاً:
 
-- [Charge customers](https://github.com/fawry-api/fawry#charge-customers)
-- [Refund customers](https://github.com/fawry-api/fawry#refund-customers)
-- [Get payment status](https://github.com/fawry-api/fawry#get-payment-status)
-- [Parse Fawry's service callback V2](https://github.com/fawry-api/fawry#parse-fawry-service-callback-v2)
-- [Configuration keys as environment variables](https://github.com/fawry-api/fawry#configuration-keys-as-environment-variables)
+- [اشحن العملاء](https://github.com/fawry-api/fawry#charge-customers)
+- [العملاء برد](https://github.com/fawry-api/fawry#refund-customers)
+- [احصل على حالة الدفع](https://github.com/fawry-api/fawry#get-payment-status)
+- [تحليل رد خدمة فوري V2](https://github.com/fawry-api/fawry#parse-fawry-service-callback-v2)
+- [مفاتيح التكوين كمتغيرات البيئة](https://github.com/fawry-api/fawry#configuration-keys-as-environment-variables)
 
-_Fawry's production and sandbox environments are supported._
+_يتم دعم بيئات الإنتاج وصندوق الحماية الخاص بـ فوري_
 
-## Installation
+## التركيب
 
-Add this line to your application's Gemfile:
+أضف هذا السطر إلى ملف Gemfile الخاص بتطبيقك:
 
 ```ruby
 gem 'fawry'
 ```
 
-And then execute:
+ثم نفذ:
 
     $ bundle
 
-Or install it yourself as:
+أو قم بتثبيته بنفسك على النحو التالي:
 
     $ gem install fawry
 
-## Usage
+## إستعمال
 
-### Charge customers
+### اشحن العملاء
 
 ```ruby
 params = { "merchant_code": 'merchant_code',
@@ -47,7 +47,7 @@ params = { "merchant_code": 'merchant_code',
            "charge_items": [{ "item_id": 'fk3fn9flk8et9a5t9w3c5h3oc684ivho',
                               "description": 'desc', "price": 20, "quantity": 1 }] }
 
-# use sandbox option to call Fawry's sandbox env
+# استخدم خيار وضع الحماية للاتصال بصندوق الحماية الخاص بفوري
 res = Fawry.charge(params, sandbox: true)
 #  => #<Fawry::FawryResponse:0x0000564257d0ea90 @type="ChargeResponse", @reference_number="931600239",
 #                                               @merchant_ref_number="io5jxf3jp27kfh8m719arcqgw7izo7db",
@@ -58,7 +58,7 @@ res.success? # => true
 res.reference_number # => 931600239
 ```
 
-###  Refund Customers
+### العملاء برد
 
 ```ruby
 params = { "merchant_code": 'merchant_code',
@@ -73,7 +73,7 @@ res = Fawry.refund(params, sandbox: true)
 res.success? # => true
 ```
 
-###  Get Payment Status
+### احصل على حالة الدفع
 
 ```ruby
 params = { "merchant_code": 'merchant_code',
@@ -91,10 +91,10 @@ res.success? # => true
 res.payment_status # => UNPAID
 ```
 
-###  Parse Fawry service callback v2
+### رد اتصال خدمة تحليل فوري v2
 
 ```ruby
-# params sent from fawry server
+# تم إرسال المعلمات من خادم فوري
 callback_params = { "requestId": 'c72827d084ea4b88949d91dd2db4996e', "fawryRefNumber": '970177',
                     "merchantRefNumber": '9708f1cea8b5426cb57922df51b7f790',
                     "customerMobile": '01004545545', "customerMail": 'fawry@fawry.com',
@@ -104,7 +104,7 @@ callback_params = { "requestId": 'c72827d084ea4b88949d91dd2db4996e', "fawryRefNu
                     "orderExpiryDate": 1_533_554_719_314,
                     "orderItems": [{ "itemCode": 'e6aacbd5a498487ab1a10ae71061535d', "price": 150.0, "quantity": 1 }] }
 
-# FAWRY_SECURE_KEY env var must be set
+# FAWRY_SECURE_KEY يجب تعيين متغير البيئة
 fawry_callback = Fawry.parse_callback(callback_params, {})
 # <Fawry::FawryCallback:0x000056339ac43730 @request_id="c72827d084ea4b88949d91dd2db4996e", @fawry_ref_number="970177",
 #                                          @merchant_ref_number="9708f1cea8b5426cb57922df51b7f790", @customer_mobile="01004545545",
@@ -114,23 +114,23 @@ fawry_callback.fawry_ref_number # => 970177
 fawry_callback.order_status # => NEW
 ```
 
-### Configuration keys as environment variables
+### مفاتيح التكوين كمتغيرات البيئة
 
-Fawry configuration keys such as merchant code and secure key can be sent with the params (`merchant_code`, `fawry_secure_key` ) to the **charge**, **refund**, **payment_status** methods, _or_ they can be set as environment variables: (`FAWRY_MERCHANT_CODE`, `FAWRY_SECURE_KEY`).
+يمكن إرسال مفاتيح تهيئة فوري مثل رمز التاجر ومفتاح الأمان مع المعلمات (`merchant_code`, `fawry_secure_key` ) الى **charge**, **refund**, **payment_status** طرق, _أو_ يمكن تعيينها كمتغيرات البيئة: (`FAWRY_MERCHANT_CODE`, `FAWRY_SECURE_KEY`).
 
-To **parse** fawry callback, you _must_ set the env var `FAWRY_SECURE_KEY`.
+لتحليل fawry معاودة الاتصال ، يجب عليك ضبط متغير البيئة `FAWRY_SECURE_KEY`.
 
-## TODO:
-- Translate README to Arabic
-- Add public API documentation to README
-- Add option to raise exception on request failure
+## لكى يفعل:
+- أضف وثائق API العامة إلى README
+- إضافة خيار لرفع الاستثناء عند فشل الطلب
 
-## Development
+## تطوير
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+بعد التحقق من الريبو ، قم بتشغيل `bin/setup` لتثبيت التبعيات.
+ثم اركض `rake spec` لإجراء الاختبارات. يمكنك أيضا الجري `bin/console` للمطالبة التفاعلية التي تسمح لك بالتجربة.
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+لتثبيت هذه الأحجار الكريمة على جهازك المحلي ، قم بتشغيل `bundle exec rake install`. لإصدار إصدار جديد ، قم بتحديث رقم الإصدار بتنسيق `version.rb`, ثم ركض `bundle exec rake release`, الذي سينشئ علامة git للإصدار ، ويدفع التزامات git والعلامات ، ويدفع ملف `.gem` يا صديق [rubygems.org](https://rubygems.org).
 
-## Contributing
+## المساهمة
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/amrrbakry/fawry. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
+يتم الترحيب بتقارير الأخطاء وطلبات السحب على GitHub في https://github.com/amrrbakry/fawry. يهدف هذا المشروع إلى أن يكون مساحة آمنة ومرحبة للتعاون ، ومن المتوقع أن يلتزم المساهمون بـ [Contributor Covenant](http://contributor-covenant.org) القواعد السلوكية.
