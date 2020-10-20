@@ -2,6 +2,8 @@
 
 # Fawry
 
+[README - متوفر باللغة العربية](https://github.com/fawry-api/fawry/blob/master/README-ar.md)
+
 **Disclaimer:** we are _not officially affilated_ with the _Fawry_ company.
 
 A plug-and-play library that makes interfacing with Fawry's payment gateway API a breeze:
