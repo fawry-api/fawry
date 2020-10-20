@@ -2,19 +2,19 @@
 
 # Fawry
 
-**تنصل:** نحن لسنا تابعين رسميًا لشركة فوري.
+**تنويه:** نحن لسنا تابعين رسميًا لشركة فوري.
 
-مكتبة التوصيل والتشغيل التي تجعل التعامل مع بوابة الدفع الخاصة بـ Fawry أمرًا سهلاً:
+مكتبة لتسهيل التعامل مع خدمات الدفع الخاصة بشبكة الدفع الإلكتروني فوري:
 
-- [اشحن العملاء](https://github.com/fawry-api/fawry#charge-customers)
-- [العملاء برد](https://github.com/fawry-api/fawry#refund-customers)
-- [احصل على حالة الدفع](https://github.com/fawry-api/fawry#get-payment-status)
+- [لإجراء عملية دفع](https://github.com/fawry-api/fawry#charge-customers)
+- [لإجراء عملية استرداد](https://github.com/fawry-api/fawry#refund-customers)
+- [حالة الدفع](https://github.com/fawry-api/fawry#get-payment-status)
 - [تحليل رد خدمة فوري V2](https://github.com/fawry-api/fawry#parse-fawry-service-callback-v2)
-- [مفاتيح التكوين كمتغيرات البيئة](https://github.com/fawry-api/fawry#configuration-keys-as-environment-variables)
+- [طلب البيانات الخاصة بإعدادات الإستخدام](https://github.com/fawry-api/fawry#configuration-keys-as-environment-variables)
 
-_يتم دعم بيئات الإنتاج وصندوق الحماية الخاص بـ فوري_
+_المكتبة تدعم النظام التجريبي لفوري ايضا_
 
-## التركيب
+## لإضافة وتشغيل المكتبة
 
 أضف هذا السطر إلى ملف Gemfile الخاص بتطبيقك:
 
@@ -30,9 +30,9 @@ gem 'fawry'
 
     $ gem install fawry
 
-## إستعمال
+## طريقة الإستعمال
 
-### اشحن العملاء
+### لإجراء عملية دفع
 
 ```ruby
 params = { "merchant_code": 'merchant_code',
@@ -47,7 +47,8 @@ params = { "merchant_code": 'merchant_code',
            "charge_items": [{ "item_id": 'fk3fn9flk8et9a5t9w3c5h3oc684ivho',
                               "description": 'desc', "price": 20, "quantity": 1 }] }
 
-# استخدم خيار وضع الحماية للاتصال بصندوق الحماية الخاص بفوري
+# استخدم خيار النظام التجريبي للاتصال بالنظام التجريبي الخاص بفوري
+# sandbox: true
 res = Fawry.charge(params, sandbox: true)
 #  => #<Fawry::FawryResponse:0x0000564257d0ea90 @type="ChargeResponse", @reference_number="931600239",
 #                                               @merchant_ref_number="io5jxf3jp27kfh8m719arcqgw7izo7db",
@@ -58,7 +59,7 @@ res.success? # => true
 res.reference_number # => 931600239
 ```
 
-### العملاء برد
+### لإجراء عملية استرداد
 
 ```ruby
 params = { "merchant_code": 'merchant_code',
@@ -73,7 +74,7 @@ res = Fawry.refund(params, sandbox: true)
 res.success? # => true
 ```
 
-### احصل على حالة الدفع
+### حالة الدفع
 
 ```ruby
 params = { "merchant_code": 'merchant_code',
@@ -114,22 +115,21 @@ fawry_callback.fawry_ref_number # => 970177
 fawry_callback.order_status # => NEW
 ```
 
-### مفاتيح التكوين كمتغيرات البيئة
+### طلب البيانات الخاصة بإعدادات الإستخدام
 
-يمكن إرسال مفاتيح تهيئة فوري مثل رمز التاجر ومفتاح الأمان مع المعلمات (`merchant_code`, `fawry_secure_key` ) الى **charge**, **refund**, **payment_status** طرق, _أو_ يمكن تعيينها كمتغيرات البيئة: (`FAWRY_MERCHANT_CODE`, `FAWRY_SECURE_KEY`).
+يمكن إرسال بيانات تهيئة فوري مثل رمز التاجر ومفتاح الأمان خلال البيانات المعطاه (`merchant_code`, `fawry_secure_key` ) الى **charge**, **refund**, **payment_status** طرق, _أو_ يمكن تعيينها كمتغيرات لنظام التشغيل: (`FAWRY_MERCHANT_CODE`, `FAWRY_SECURE_KEY`).
 
 لتحليل fawry معاودة الاتصال ، يجب عليك ضبط متغير البيئة `FAWRY_SECURE_KEY`.
 
-## لكى يفعل:
-- أضف وثائق API العامة إلى README
+## الخطوات القادمة المطلوب تنفيذها:
 - إضافة خيار لرفع الاستثناء عند فشل الطلب
 
-## تطوير
+## تطوير المكتبة
 
 بعد التحقق من الريبو ، قم بتشغيل `bin/setup` لتثبيت التبعيات.
-ثم اركض `rake spec` لإجراء الاختبارات. يمكنك أيضا الجري `bin/console` للمطالبة التفاعلية التي تسمح لك بالتجربة.
+ثم نفذ الأمر `rake spec` لإجراء الاختبارات. يمكنك أيضا الجري `bin/console` للمطالبة التفاعلية التي تسمح لك بالتجربة.
 
-لتثبيت هذه الأحجار الكريمة على جهازك المحلي ، قم بتشغيل `bundle exec rake install`. لإصدار إصدار جديد ، قم بتحديث رقم الإصدار بتنسيق `version.rb`, ثم ركض `bundle exec rake release`, الذي سينشئ علامة git للإصدار ، ويدفع التزامات git والعلامات ، ويدفع ملف `.gem` يا صديق [rubygems.org](https://rubygems.org).
+لتثبيت هذه المكتبة على جهازك ، قم بتشغيل `bundle exec rake install`. لإصدار إصدار جديد ، قم بتحديث رقم الإصدار بتنسيق `version.rb`, ثم نفذ الأمر `bundle exec rake release`, الذي سينشئ علامة git للإصدار ، ويدفع التزامات git والعلامات ، ويدفع ملف `.gem` يا صديق [rubygems.org](https://rubygems.org).
 
 ## المساهمة
 
