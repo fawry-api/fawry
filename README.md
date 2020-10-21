@@ -123,7 +123,6 @@ Fawry configuration keys such as merchant code and secure key can be sent with t
 To **parse** fawry callback, you _must_ set the env var `FAWRY_SECURE_KEY`.
 
 ## TODO:
-- Translate README to Arabic
 - Add public API documentation to README
 - Add option to raise exception on request failure
 
