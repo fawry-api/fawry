@@ -107,7 +107,7 @@ callback_params = { "requestId": 'c72827d084ea4b88949d91dd2db4996e', "fawryRefNu
                     "orderItems": [{ "itemCode": 'e6aacbd5a498487ab1a10ae71061535d', "price": 150.0, "quantity": 1 }] }
 
 # FAWRY_SECURE_KEY env var must be set
-fawry_callback = Fawry.parse_callback(callback_params, {})
+fawry_callback = Fawry.parse_callback(callback_params)
 # <Fawry::FawryCallback:0x000056339ac43730 @request_id="c72827d084ea4b88949d91dd2db4996e", @fawry_ref_number="970177",
 #                                          @merchant_ref_number="9708f1cea8b5426cb57922df51b7f790", @customer_mobile="01004545545",
 #                                          @customer_mail="fawry@fawry.com", @order_status="NEW", @order_amount=150.0, @fawry_fees=2.0, ...>
