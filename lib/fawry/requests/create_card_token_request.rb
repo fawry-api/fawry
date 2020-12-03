@@ -5,7 +5,6 @@ require 'digest'
 module Fawry
   module Requests
     module CreateCardTokenRequest
-
       def fire_create_card_token_request
         fawry_api_response = Connection.post(request[:path], request[:params], request[:body], request[:options])
         response_body = JSON.parse(fawry_api_response.body)
@@ -29,7 +28,6 @@ module Fawry
       end
 
       # rubocop:disable Metrics/AbcSize
-      # rubocop:disable Metrics/MethodLength
       def create_card_token_request_transformed_params
         {
           merchantCode: fawry_merchant_code,
@@ -39,10 +37,10 @@ module Fawry
           cardNumber: create_card_token_request[:card_number],
           expiryYear: create_card_token_request[:expiry_year],
           expiryMonth: create_card_token_request[:expiry_month],
-          cvv: create_card_token_request[:cvv],
+          cvv: create_card_token_request[:cvv]
         }.compact
       end
-      # rubocop:enable Metrics/MethodLength
+
       # rubocop:enable Metrics/AbcSize
 
       def fawry_merchant_code

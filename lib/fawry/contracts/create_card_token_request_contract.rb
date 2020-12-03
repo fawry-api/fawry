@@ -27,7 +27,6 @@ module Fawry
           key(:merchant_code).failure('fawry merchant code is required as a param or an env var')
         end
       end
-
     end
   end
 end
