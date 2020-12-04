@@ -119,14 +119,14 @@ end
 
 def fawry_create_token_params
   {
+    "merchantCode": create_token_params[:merchant_code],
     'customerProfileId': create_token_params[:customer_profile_id],
     'customerMobile': create_token_params[:customer_mobile],
     'customerEmail': create_token_params[:customer_email],
     'cardNumber': create_token_params[:card_number],
     'expiryYear': create_token_params[:expiry_year],
     'expiryMonth': create_token_params[:expiry_month],
-    'cvv': create_token_params[:cvv],
-    "merchantCode": create_token_params[:merchant_code]
+    'cvv': create_token_params[:cvv]
   }.compact
 end
 
@@ -146,8 +146,8 @@ end
 
 def fawry_list_tokens_params
   {
-    'customerProfileId': list_tokens_params[:customer_profile_id],
     'merchantCode': list_tokens_params[:merchant_code],
+    'customerProfileId': list_tokens_params[:customer_profile_id],
     'signature': 'a05d6e98f405c5207e623f9f336f1ab0fa88af82008faeacfd4dcf89d35b022b'
   }.compact
 end
@@ -169,10 +169,10 @@ end
 
 def fawry_delete_token_params
   {
-    'customerProfileId': delete_token_params[:customer_profile_id],
     'merchantCode': delete_token_params[:merchant_code],
-    'cardToken': delete_token_params[:card_token],
-    'signature': 'dceabc10e46a4093b5fec54d782d9049e04080fdde3fa6a5bbf5455303491c2c'
+    'customerProfileId': delete_token_params[:customer_profile_id],
+    'signature': 'dceabc10e46a4093b5fec54d782d9049e04080fdde3fa6a5bbf5455303491c2c',
+    'cardToken': delete_token_params[:card_token]
   }.compact
 end
 

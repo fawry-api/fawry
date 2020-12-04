@@ -150,4 +150,79 @@ RSpec.describe Fawry::FawryRequest do
       end
     end
   end
+
+  context 'create card token request' do
+    describe '.new' do
+      it 'builds the correct create card token request' do
+        fawry_request = described_class.new('create_card_token', create_token_params, {})
+        expect(fawry_request.class.included_modules.include?(Fawry::Requests::CreateCardTokenRequest)).to be true
+        expect(fawry_request.action).to eq('create_card_token')
+        expect(fawry_request.request[:path]).to eq('cards/cardToken')
+        expect(fawry_request.request[:body].keys).to eq(fawry_create_token_params.keys)
+      end
+    end
+
+    describe '#fire' do
+      it 'fires a create card token request to fawry' do
+        stub_request(:post, Fawry::Connection::FAWRY_BASE_URL + 'cards/cardToken')
+          .with(body: fawry_create_token_params)
+          .to_return(status: 200, body: create_card_token_response)
+
+        described_class.new('create_card_token', create_token_params, {}).fire_create_card_token_request
+
+        expect(WebMock).to have_requested(:post, Fawry::Connection::FAWRY_BASE_URL + 'cards/cardToken')
+          .with(body: fawry_create_token_params)
+      end
+    end
+  end
+
+  context 'list card tokens request' do
+    describe '.new' do
+      it 'builds the correct list card tokens request' do
+        fawry_request = described_class.new('list_tokens', list_tokens_params, {})
+        expect(fawry_request.class.included_modules.include?(Fawry::Requests::ListTokensRequest)).to be true
+        expect(fawry_request.action).to eq('list_tokens')
+        expect(fawry_request.request[:path]).to eq('cards/cardToken')
+        expect(fawry_request.request[:params].keys).to eq(fawry_list_tokens_params.keys)
+      end
+    end
+
+    describe '#fire' do
+      it 'fires a list card tokens request to fawry' do
+        stub_request(:get, Fawry::Connection::FAWRY_BASE_URL + 'cards/cardToken')
+          .with(query: fawry_list_tokens_params)
+          .to_return(status: 200, body: list_tokens_response)
+
+        described_class.new('list_tokens', list_tokens_params, {}).fire_list_tokens_request
+
+        expect(WebMock).to have_requested(:get, Fawry::Connection::FAWRY_BASE_URL + 'cards/cardToken')
+          .with(query: fawry_list_tokens_params)
+      end
+    end
+  end
+
+  context 'delete card token request' do
+    describe '.new' do
+      it 'builds the correct delete card token request' do
+        fawry_request = described_class.new('delete_token', delete_token_params, {})
+        expect(fawry_request.class.included_modules.include?(Fawry::Requests::DeleteTokenRequest)).to be true
+        expect(fawry_request.action).to eq('delete_token')
+        expect(fawry_request.request[:path]).to eq('cards/cardToken')
+        expect(fawry_request.request[:body].keys).to eq(fawry_delete_token_params.keys)
+      end
+    end
+
+    describe '#fire' do
+      it 'fires a list card tokens request to fawry' do
+        stub_request(:delete, Fawry::Connection::FAWRY_BASE_URL + 'cards/cardToken')
+          .with(body: fawry_delete_token_params)
+          .to_return(status: 200, body: delete_token_response)
+
+        described_class.new('delete_token', delete_token_params, {}).fire_delete_token_request
+
+        expect(WebMock).to have_requested(:delete, Fawry::Connection::FAWRY_BASE_URL + 'cards/cardToken')
+          .with(body: fawry_delete_token_params)
+      end
+    end
+  end
 end
