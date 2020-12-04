@@ -17,8 +17,8 @@ module Fawry
       def build_delete_token_request
         {
           path: 'cards/cardToken',
-          params: delete_token_request_transformed_params,
-          body: {},
+          params: {},
+          body: delete_token_request_transformed_params,
           options: options
         }
       end
