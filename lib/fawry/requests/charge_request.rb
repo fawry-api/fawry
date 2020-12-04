@@ -5,7 +5,7 @@ require 'digest'
 module Fawry
   module Requests
     module ChargeRequest
-      DEFAULTS = { payment_method: 'CARD', currency_code: 'EGP' }.freeze
+      DEFAULTS = { payment_method: 'PAYATFAWRY', currency_code: 'EGP' }.freeze
 
       def fire_charge_request
         fawry_api_response = Connection.post(request[:path], request[:params], request[:body], request[:options])

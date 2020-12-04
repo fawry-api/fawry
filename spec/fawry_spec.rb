@@ -42,6 +42,42 @@ RSpec.describe Fawry do
     end
   end
 
+  describe '.create_card_token' do
+    it 'perform creating card token successfully' do
+      stub_request(:post, Fawry::Connection::FAWRY_BASE_URL + 'cards/cardToken')
+        .with(body: fawry_create_token_params)
+        .to_return(status: 200, body: create_card_token_response)
+
+      response = described_class.create_card_token(create_token_params)
+      expect(response.success?).to be true
+      expect(response.status_code).to eq(200)
+    end
+  end
+
+  describe '.list_tokens' do
+    it 'perform list tokens successfully' do
+      stub_request(:get, Fawry::Connection::FAWRY_BASE_URL + 'cards/cardToken')
+        .with(query: fawry_list_tokens_params)
+        .to_return(status: 200, body: list_tokens_response)
+
+      response = described_class.list_tokens(list_tokens_params)
+      expect(response.success?).to be true
+      expect(response.status_code).to eq(200)
+    end
+  end
+
+  describe '.delete_token' do
+    it 'perform deleting token successfully' do
+      stub_request(:delete, Fawry::Connection::FAWRY_BASE_URL + 'cards/cardToken')
+        .with(body: fawry_delete_token_params)
+        .to_return(status: 200, body: delete_token_response)
+
+      response = described_class.delete_token(delete_token_params)
+      expect(response.success?).to be true
+      expect(response.status_code).to eq(200)
+    end
+  end
+
   describe '.parse_callback' do
     it 'parses fawry service callback into FawryCallback' do
       ENV['FAWRY_SECURE_KEY'] = 'fawry_secure_key'
