@@ -5,9 +5,9 @@ require 'json'
 
 module Fawry
   class Connection
-    FAWRY_BASE_URL = 'https://www.atfawry.com/ECommerceWeb/Fawry/payments/'
+    FAWRY_BASE_URL = 'https://www.atfawry.com/ECommerceWeb/Fawry/'
 
-    FAWRY_SANDBOX_BASE_URL = 'https://atfawry.fawrystaging.com//ECommerceWeb/Fawry/payments/'
+    FAWRY_SANDBOX_BASE_URL = 'https://atfawry.fawrystaging.com//ECommerceWeb/Fawry/'
 
     class << self
       def post(path, params, body, options)
@@ -23,6 +23,17 @@ module Fawry
         conn = options[:sandbox] ? sandbox_connection : connection
 
         conn.get(path) do |request|
+          request.params = params
+          request.body = body.to_json
+          # Fawry doesn't understand encoded params
+          request.options = request.options.merge(params_encoder: ParamsSpecialEncoder)
+        end
+      end
+
+      def delete(path, params, body, options)
+        conn = options[:sandbox] ? sandbox_connection : connection
+
+        conn.delete(path) do |request|
           request.params = params
           request.body = body.to_json
           # Fawry doesn't understand encoded params

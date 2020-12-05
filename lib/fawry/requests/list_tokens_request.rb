@@ -4,8 +4,8 @@ require 'digest'
 
 module Fawry
   module Requests
-    module PaymentStatusRequest
-      def fire_payment_status_request
+    module ListTokensRequest
+      def fire_list_tokens_request
         fawry_api_response = Connection.get(request[:path], request[:params], request[:body], request[:options])
         response_body = JSON.parse(fawry_api_response.body)
 
@@ -14,10 +14,10 @@ module Fawry
 
       private
 
-      def build_payment_status_request
+      def build_list_tokens_request
         {
-          path: 'payments/status',
-          params: payment_status_request_transformed_params,
+          path: 'cards/cardToken',
+          params: list_tokens_request_transformed_params,
           body: {},
           options: options
         }
@@ -27,11 +27,11 @@ module Fawry
         @request_params = params
       end
 
-      def payment_status_request_transformed_params
+      def list_tokens_request_transformed_params
         {
           merchantCode: fawry_merchant_code,
-          merchantRefNumber: request_params[:merchant_ref_number],
-          signature: payment_status_request_signature
+          customerProfileId: request_params[:customer_profile_id],
+          signature: list_tokens_request_signature
         }.compact
       end
 
@@ -43,13 +43,13 @@ module Fawry
         ENV.fetch('FAWRY_SECURE_KEY') { request_params[:fawry_secure_key] }
       end
 
-      def validate_payment_status_params!
-        contract = Contracts::PaymentStatusRequestContract.new.call(request_params)
+      def validate_list_tokens_params!
+        contract = Contracts::ListTokensRequestContract.new.call(request_params)
         raise InvalidFawryRequestError, contract.errors.to_h if contract.failure?
       end
 
-      def payment_status_request_signature
-        Digest::SHA256.hexdigest("#{fawry_merchant_code}#{request_params[:merchant_ref_number]}"\
+      def list_tokens_request_signature
+        Digest::SHA256.hexdigest("#{fawry_merchant_code}#{request_params[:customer_profile_id]}"\
                                  "#{fawry_secure_key}")
       end
     end

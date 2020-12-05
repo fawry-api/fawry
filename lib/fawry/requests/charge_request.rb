@@ -18,7 +18,7 @@ module Fawry
 
       def build_charge_request
         {
-          path: 'charge',
+          path: 'payments/charge',
           params: {},
           body: charge_request_transformed_params,
           options: options

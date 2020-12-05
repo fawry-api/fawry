@@ -60,7 +60,7 @@ res.success? # => true
 res.reference_number # => 931600239
 ```
 
-###  Refund Customers
+### Refund Customers
 
 ```ruby
 params = { "merchant_code": 'merchant_code',
@@ -75,7 +75,7 @@ res = Fawry.refund(params, sandbox: true)
 res.success? # => true
 ```
 
-###  Get Payment Status
+### Get Payment Status
 
 ```ruby
 params = { "merchant_code": 'merchant_code',
@@ -93,7 +93,54 @@ res.success? # => true
 res.payment_status # => UNPAID
 ```
 
-###  Parse Fawry service callback v2
+### List Card Tokens
+
+```ruby
+params = { "merchant_code": 'merchant_code',
+           "customer_profile_id": 'customer_profile_id',
+           "fawry_secure_key": 'fawry_secure_key' }
+
+res = Fawry.list_tokens(params, sandbox: true)
+#<Fawry::FawryResponse:0x0000556cb3a31798 @fawry_api_response={"type"=>"CustomerTokensResponse", "cards"=>[{"token"=>"b5sshhdsl98df96200f254c19b2718bfc825a0678888216c28962b3e66a393084ee9aed6", "creationDate"=>1599487402318, "lastFourDigits"=>"4242", "brand"=>"Visa Card"}, {"token"=>"fb98dslsksmkdds7857ed7042ce30a2a5b777e1f1ac6ac58da1c8c0199f61df7a8bc098e96", "creationDate"=>1599489158457, "lastFourDigits"=>"0001", "brand"=>"Visa Card"}, {"token"=>"cc03fwqaacbd94e468a1b756ac1cbb285a41a2428df9f1a727457b41f9447d0058c7c", "creationDate"=>1599584834346, "lastFourDigits"=>"2346", "brand"=>"MasterCard"}, {"token"=>"f04a8bc9c973f900515f4b58e52c9ff03070baf3f534bdfdad0e97679534f60ddkjk13", "creationDate"=>1600260415739, "lastFourDigits"=>"8769", "brand"=>"Visa Card"}], "statusCode"=>200, "statusDescription"=>"Operation done successfully"}, @type="CustomerTokensResponse", @cards=[{"token"=>"b5sshhdsl98df96200f254c19b2718bfc825a0678888216c28962b3e66a393084ee9aed6", "creationDate"=>1599487402318, "lastFourDigits"=>"4242", "brand"=>"Visa Card"}, {"token"=>"fb98dslsksmkdds7857ed7042ce30a2a5b777e1f1ac6ac58da1c8c0199f61df7a8bc098e96", "creationDate"=>1599489158457, "lastFourDigits"=>"0001", "brand"=>"Visa Card"}, {"token"=>"cc03fwqaacbd94e468a1b756ac1cbb285a41a2428df9f1a727457b41f9447d0058c7c", "creationDate"=>1599584834346, "lastFourDigits"=>"2346", "brand"=>"MasterCard"}, {"token"=>"f04a8bc9c973f900515f4b58e52c9ff03070baf3f534bdfdad0e97679534f60ddkjk13", "creationDate"=>1600260415739, "lastFourDigits"=>"8769", "brand"=>"Visa Card"}], @status_code=200, @status_description="Operation done successfully">
+
+res.success? # => true
+res.cards # => cards
+```
+
+### Create Card Token
+
+```ruby
+params = { "merchant_code" : "merchant_code",
+            "customer_profile_id" : "customer_profile_id",
+            "customer_mobile" : "customer_mobile",
+            "customer_email" : "customer_email",
+            "card_number" : "card_number",
+            "expiry_year" : "expiry_year",
+            "expiry_month" : "expiry_month",
+            "cvv" : "cvv" }
+res = Fawry.create_card_token(params, sandbox: true)
+#<Fawry::FawryResponse:0x0000556cb3eb0080 @fawry_api_response={"type"=>"CardTokenResponse", "card"=>{"token"=>"b598f96200f254c19b2718bfc825a063278888216c28962b3e66a393084ee9aed6", "creationDate"=>1607011562353, "lastFourDigits"=>"4242"}, "statusCode"=>200, "statusDescription"=>"Operation done successfully"}, @type="CardTokenResponse", @status_code=200, @status_description="Operation done successfully", @card={"token"=>"b598f96200f254c19b2718bfc825a063278888216c28962b3e66a393084ee9aed6", "creationDate"=>1607011562353, "lastFourDigits"=>"4242"}>
+
+res.success?
+res.card
+```
+
+### Delete Card Token
+
+```ruby
+params = { "merchant_code": "merchant_code",
+           "customer_profile_id": "customer_profile_id",
+           "card_token": "card_token",
+           "fawry_secure_key": "fawry_secure_key" }
+
+res = Fawry.delete_token(params, sandbox: true)
+#<Fawry::FawryResponse:0x0000556cb57c2460 @fawry_api_response={"type"=>"CardTokenResponse", "statusCode"=>200, "statusDescription"=>"Operation done successfully"}, @type="CardTokenResponse", @status_code=200, @status_description="Operation done successfully">
+
+res.success?
+
+```
+
+### Parse Fawry service callback v2
 
 ```ruby
 # params sent from fawry server
@@ -123,6 +170,7 @@ Fawry configuration keys such as merchant code and secure key can be sent with t
 To **parse** fawry callback, you _must_ set the env var `FAWRY_SECURE_KEY`.
 
 ## TODO:
+
 - Add public API documentation to README
 - Add option to raise exception on request failure
 
