@@ -98,12 +98,6 @@ def fawry_payment_status_params
   }.compact
 end
 
-def payment_status_params
-  { "merchant_code": 'merchant_code',
-    'merchant_ref_number': 'io5jxf3jp27kfh8m719arcqgw7izo7db',
-    'fawry_secure_key': 'fawry_secure_key' }
-end
-
 def create_token_params
   {
     'customer_profile_id': '1',
@@ -117,6 +111,7 @@ def create_token_params
   }
 end
 
+# rubocop:disable Metrics/AbcSize
 def fawry_create_token_params
   {
     "merchantCode": create_token_params[:merchant_code],
@@ -129,6 +124,7 @@ def fawry_create_token_params
     'cvv': create_token_params[:cvv]
   }.compact
 end
+# rubocop:enable Metrics/AbcSize
 
 def create_card_token_response
   { "type": 'CardTokenResponse',

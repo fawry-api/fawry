@@ -17,6 +17,8 @@ module Fawry
     private
 
     # rubocop:disable Metrics/MethodLength
+    # rubocop:disable Metrics/AbcSize
+    # rubocop:disable Metrics/CyclomaticComplexity
     def build_request
       case action
       when 'charge'
@@ -44,6 +46,8 @@ module Fawry
         validate_delete_token_params!
         @request = build_delete_token_request
       end
+      # rubocop:enable Metrics/CyclomaticComplexity
+      # rubocop:enable Metrics/AbcSize
       # rubocop:enable Metrics/MethodLength
     end
   end
