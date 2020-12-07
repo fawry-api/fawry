@@ -9,6 +9,9 @@
 - [لإجراء عملية دفع](https://github.com/fawry-api/fawry#charge-customers)
 - [لإجراء عملية استرداد](https://github.com/fawry-api/fawry#refund-customers)
 - [حالة الدفع](https://github.com/fawry-api/fawry#get-payment-status)
+- [عرض رموز الكروت](https://github.com/fawry-api/fawry#list-card-tokens)
+- [إضافة رمز كارت](https://github.com/fawry-api/fawry#create-card-token)
+- [حذف رمز كارت](https://github.com/fawry-api/fawry#delete-card-token)
 - [تحليل رد خدمة فوري V2](https://github.com/fawry-api/fawry#parse-fawry-service-callback-v2)
 - [طلب البيانات الخاصة بإعدادات الإستخدام](https://github.com/fawry-api/fawry#configuration-keys-as-environment-variables)
 

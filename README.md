@@ -11,7 +11,7 @@ A plug-and-play library that makes interfacing with Fawry's payment gateway API 
 - [Charge customers](https://github.com/fawry-api/fawry#charge-customers)
 - [Refund customers](https://github.com/fawry-api/fawry#refund-customers)
 - [Get payment status](https://github.com/fawry-api/fawry#get-payment-status)
-- [List card tokens](https://github.com/fawry-api/fawry#list-card-token)
+- [List card tokens](https://github.com/fawry-api/fawry#list-card-tokens)
 - [Create card token](https://github.com/fawry-api/fawry#create-card-token)
 - [Delete card token](https://github.com/fawry-api/fawry#delete-card-token)
 - [Parse Fawry's service callback V2](https://github.com/fawry-api/fawry#parse-fawry-service-callback-v2)
