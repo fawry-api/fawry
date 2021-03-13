@@ -7,14 +7,14 @@ require 'fawry/version'
 Gem::Specification.new do |spec|
   spec.name          = 'fawry'
   spec.version       = Fawry::VERSION
-  spec.authors       = ['Amr Bakry']
-  spec.email         = ['amrrbakry17@gmail.com']
+  spec.authors       = ['Amr El Bakry']
+  spec.email         = ['amrr@hey.com']
 
   spec.summary       = "A library to interface with Fawry's payment gateway API (charge, refund, payment status,
                         service callback)."
   spec.homepage      = 'https://github.com/amrrbakry/fawry'
   spec.license       = 'MIT'
-  spec.required_ruby_version = '~> 2.6'
+  spec.required_ruby_version = '>= 2.6'
 
   spec.metadata['homepage_uri'] = 'https://github.com/amrrbakry/fawry'
   spec.metadata['source_code_uri'] = 'https://github.com/amrrbakry/fawry'
