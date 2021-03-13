@@ -3,7 +3,7 @@
 RSpec.describe Fawry::FawryResponse do
   describe '.new' do
     it 'wraps fawry API response inside FawryResponse instance' do
-      stub_request(:post, Fawry::Connection::FAWRY_BASE_URL + 'payments/charge')
+      stub_request(:post, "#{Fawry::Connection::FAWRY_BASE_URL}payments/charge")
         .with(body: fawry_params)
         .to_return(status: 200, body: fawry_api_response)
 
@@ -14,7 +14,7 @@ RSpec.describe Fawry::FawryResponse do
     end
 
     it 'adds fawry API response keys as methods on FawryResponse instance' do
-      stub_request(:post, Fawry::Connection::FAWRY_BASE_URL + 'payments/charge')
+      stub_request(:post, "#{Fawry::Connection::FAWRY_BASE_URL}payments/charge")
         .with(body: fawry_params)
         .to_return(status: 200, body: fawry_api_response)
 
@@ -32,7 +32,7 @@ RSpec.describe Fawry::FawryResponse do
 
   describe '#success?' do
     it 'returns true if operation was a success at fawry' do
-      stub_request(:post, Fawry::Connection::FAWRY_BASE_URL + 'payments/charge')
+      stub_request(:post, "#{Fawry::Connection::FAWRY_BASE_URL}payments/charge")
         .with(body: fawry_params)
         .to_return(status: 200, body: fawry_api_response)
 
@@ -45,7 +45,7 @@ RSpec.describe Fawry::FawryResponse do
 
   describe '#failure?' do
     it 'returns true if operation failed at fawry' do
-      stub_request(:post, Fawry::Connection::FAWRY_BASE_URL + 'payments/charge')
+      stub_request(:post, "#{Fawry::Connection::FAWRY_BASE_URL}payments/charge")
         .with(body: fawry_params)
         .to_return(status: 200, body: fawry_api_failure_response)
 
@@ -58,7 +58,7 @@ RSpec.describe Fawry::FawryResponse do
 
   describe '#fawry_api_response_body' do
     it 'returns fawry api response body' do
-      stub_request(:post, Fawry::Connection::FAWRY_BASE_URL + 'payments/charge')
+      stub_request(:post, "#{Fawry::Connection::FAWRY_BASE_URL}payments/charge")
         .with(body: fawry_params)
         .to_return(status: 200, body: fawry_api_response)
 

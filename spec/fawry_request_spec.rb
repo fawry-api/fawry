@@ -14,13 +14,13 @@ RSpec.describe Fawry::FawryRequest do
 
     describe '#fire' do
       it 'fires a charge request to fawry' do
-        stub_request(:post, Fawry::Connection::FAWRY_BASE_URL + 'payments/charge')
+        stub_request(:post, "#{Fawry::Connection::FAWRY_BASE_URL}payments/charge")
           .with(body: fawry_params)
           .to_return(status: 200, body: fawry_api_response)
 
         described_class.new('charge', params, {}).fire_charge_request
 
-        expect(WebMock).to have_requested(:post, Fawry::Connection::FAWRY_BASE_URL + 'payments/charge')
+        expect(WebMock).to have_requested(:post, "#{Fawry::Connection::FAWRY_BASE_URL}payments/charge")
           .with(body: fawry_params)
       end
     end
@@ -39,13 +39,13 @@ RSpec.describe Fawry::FawryRequest do
         ENV['FAWRY_SECURE_KEY'] = 'fawry_secure_key'
         ENV['FAWRY_MERCHANT_CODE'] = 'merchant_code'
 
-        stub_request(:post, Fawry::Connection::FAWRY_BASE_URL + 'payments/charge')
+        stub_request(:post, "#{Fawry::Connection::FAWRY_BASE_URL}payments/charge")
           .with(body: fawry_params)
           .to_return(status: 200, body: fawry_api_response)
 
         described_class.new('charge', params_without_config_keys, {}).fire_charge_request
 
-        expect(WebMock).to have_requested(:post, Fawry::Connection::FAWRY_BASE_URL + 'payments/charge')
+        expect(WebMock).to have_requested(:post, "#{Fawry::Connection::FAWRY_BASE_URL}payments/charge")
           .with(body: fawry_params)
       end
 
@@ -72,13 +72,13 @@ RSpec.describe Fawry::FawryRequest do
 
     describe '#fire' do
       it 'fires a refund request to fawry' do
-        stub_request(:post, Fawry::Connection::FAWRY_BASE_URL + 'payments/refund')
+        stub_request(:post, "#{Fawry::Connection::FAWRY_BASE_URL}payments/refund")
           .with(body: fawry_refund_params)
           .to_return(status: 200, body: fawry_refund_response)
 
         described_class.new('refund', refund_params, {}).fire_refund_request
 
-        expect(WebMock).to have_requested(:post, Fawry::Connection::FAWRY_BASE_URL + 'payments/refund')
+        expect(WebMock).to have_requested(:post, "#{Fawry::Connection::FAWRY_BASE_URL}payments/refund")
           .with(body: fawry_refund_params)
       end
     end
@@ -93,13 +93,13 @@ RSpec.describe Fawry::FawryRequest do
       it 'reads config keys from environment variables' do
         ENV['FAWRY_SECURE_KEY'] = 'fawry_secure_key'
 
-        stub_request(:post, Fawry::Connection::FAWRY_BASE_URL + 'payments/charge')
+        stub_request(:post, "#{Fawry::Connection::FAWRY_BASE_URL}payments/charge")
           .with(body: fawry_params)
           .to_return(status: 200, body: fawry_api_response)
 
         described_class.new('charge', params_without_secure_key, {}).fire_charge_request
 
-        expect(WebMock).to have_requested(:post, Fawry::Connection::FAWRY_BASE_URL + 'payments/charge')
+        expect(WebMock).to have_requested(:post, "#{Fawry::Connection::FAWRY_BASE_URL}payments/charge")
           .with(body: fawry_params)
       end
     end
@@ -118,13 +118,13 @@ RSpec.describe Fawry::FawryRequest do
 
     describe '#fire' do
       it 'fires a payment status request to fawry' do
-        stub_request(:get, Fawry::Connection::FAWRY_BASE_URL + 'payments/status')
+        stub_request(:get, "#{Fawry::Connection::FAWRY_BASE_URL}payments/status")
           .with(query: fawry_payment_status_params)
           .to_return(status: 200, body: fawry_payment_status_response)
 
         described_class.new('payment_status', payment_status_params, {}).fire_payment_status_request
 
-        expect(WebMock).to have_requested(:get, Fawry::Connection::FAWRY_BASE_URL + 'payments/status')
+        expect(WebMock).to have_requested(:get, "#{Fawry::Connection::FAWRY_BASE_URL}payments/status")
           .with(query: fawry_payment_status_params)
       end
     end
@@ -139,13 +139,13 @@ RSpec.describe Fawry::FawryRequest do
       it 'reads config keys from environment variables' do
         ENV['FAWRY_MERCHANT_CODE'] = 'merchant_code'
 
-        stub_request(:post, Fawry::Connection::FAWRY_BASE_URL + 'payments/charge')
+        stub_request(:post, "#{Fawry::Connection::FAWRY_BASE_URL}payments/charge")
           .with(body: fawry_params)
           .to_return(status: 200, body: fawry_api_response)
 
         described_class.new('charge', params_without_merchant_code, {}).fire_charge_request
 
-        expect(WebMock).to have_requested(:post, Fawry::Connection::FAWRY_BASE_URL + 'payments/charge')
+        expect(WebMock).to have_requested(:post, "#{Fawry::Connection::FAWRY_BASE_URL}payments/charge")
           .with(body: fawry_params)
       end
     end
@@ -164,13 +164,13 @@ RSpec.describe Fawry::FawryRequest do
 
     describe '#fire' do
       it 'fires a create card token request to fawry' do
-        stub_request(:post, Fawry::Connection::FAWRY_BASE_URL + 'cards/cardToken')
+        stub_request(:post, "#{Fawry::Connection::FAWRY_BASE_URL}cards/cardToken")
           .with(body: fawry_create_token_params)
           .to_return(status: 200, body: create_card_token_response)
 
         described_class.new('create_card_token', create_token_params, {}).fire_create_card_token_request
 
-        expect(WebMock).to have_requested(:post, Fawry::Connection::FAWRY_BASE_URL + 'cards/cardToken')
+        expect(WebMock).to have_requested(:post, "#{Fawry::Connection::FAWRY_BASE_URL}cards/cardToken")
           .with(body: fawry_create_token_params)
       end
     end
@@ -189,13 +189,13 @@ RSpec.describe Fawry::FawryRequest do
 
     describe '#fire' do
       it 'fires a list card tokens request to fawry' do
-        stub_request(:get, Fawry::Connection::FAWRY_BASE_URL + 'cards/cardToken')
+        stub_request(:get, "#{Fawry::Connection::FAWRY_BASE_URL}cards/cardToken")
           .with(query: fawry_list_tokens_params)
           .to_return(status: 200, body: list_tokens_response)
 
         described_class.new('list_tokens', list_tokens_params, {}).fire_list_tokens_request
 
-        expect(WebMock).to have_requested(:get, Fawry::Connection::FAWRY_BASE_URL + 'cards/cardToken')
+        expect(WebMock).to have_requested(:get, "#{Fawry::Connection::FAWRY_BASE_URL}cards/cardToken")
           .with(query: fawry_list_tokens_params)
       end
     end
@@ -214,13 +214,13 @@ RSpec.describe Fawry::FawryRequest do
 
     describe '#fire' do
       it 'fires a list card tokens request to fawry' do
-        stub_request(:delete, Fawry::Connection::FAWRY_BASE_URL + 'cards/cardToken')
+        stub_request(:delete, "#{Fawry::Connection::FAWRY_BASE_URL}cards/cardToken")
           .with(body: fawry_delete_token_params)
           .to_return(status: 200, body: delete_token_response)
 
         described_class.new('delete_token', delete_token_params, {}).fire_delete_token_request
 
-        expect(WebMock).to have_requested(:delete, Fawry::Connection::FAWRY_BASE_URL + 'cards/cardToken')
+        expect(WebMock).to have_requested(:delete, "#{Fawry::Connection::FAWRY_BASE_URL}cards/cardToken")
           .with(body: fawry_delete_token_params)
       end
     end

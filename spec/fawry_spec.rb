@@ -7,7 +7,7 @@ RSpec.describe Fawry do
 
   describe '.charge' do
     it 'performs charge request successfully' do
-      stub_request(:post, Fawry::Connection::FAWRY_BASE_URL + 'payments/charge')
+      stub_request(:post, "#{Fawry::Connection::FAWRY_BASE_URL}payments/charge")
         .with(body: fawry_params)
         .to_return(status: 200, body: fawry_api_response)
 
@@ -20,7 +20,7 @@ RSpec.describe Fawry do
 
   describe '.refund' do
     it 'performs refund request successfully' do
-      stub_request(:post, Fawry::Connection::FAWRY_BASE_URL + 'payments/refund')
+      stub_request(:post, "#{Fawry::Connection::FAWRY_BASE_URL}payments/refund")
         .with(body: fawry_refund_params)
         .to_return(status: 200, body: fawry_refund_response)
 
@@ -32,7 +32,7 @@ RSpec.describe Fawry do
 
   describe '.payment_status' do
     it 'performs payment status request successfully' do
-      stub_request(:get, Fawry::Connection::FAWRY_BASE_URL + 'payments/status')
+      stub_request(:get, "#{Fawry::Connection::FAWRY_BASE_URL}payments/status")
         .with(query: fawry_payment_status_params)
         .to_return(status: 200, body: fawry_payment_status_response)
 
@@ -44,7 +44,7 @@ RSpec.describe Fawry do
 
   describe '.create_card_token' do
     it 'perform creating card token successfully' do
-      stub_request(:post, Fawry::Connection::FAWRY_BASE_URL + 'cards/cardToken')
+      stub_request(:post, "#{Fawry::Connection::FAWRY_BASE_URL}cards/cardToken")
         .with(body: fawry_create_token_params)
         .to_return(status: 200, body: create_card_token_response)
 
@@ -56,7 +56,7 @@ RSpec.describe Fawry do
 
   describe '.list_tokens' do
     it 'perform list tokens successfully' do
-      stub_request(:get, Fawry::Connection::FAWRY_BASE_URL + 'cards/cardToken')
+      stub_request(:get, "#{Fawry::Connection::FAWRY_BASE_URL}cards/cardToken")
         .with(query: fawry_list_tokens_params)
         .to_return(status: 200, body: list_tokens_response)
 
@@ -68,7 +68,7 @@ RSpec.describe Fawry do
 
   describe '.delete_token' do
     it 'perform deleting token successfully' do
-      stub_request(:delete, Fawry::Connection::FAWRY_BASE_URL + 'cards/cardToken')
+      stub_request(:delete, "#{Fawry::Connection::FAWRY_BASE_URL}cards/cardToken")
         .with(body: fawry_delete_token_params)
         .to_return(status: 200, body: delete_token_response)
 

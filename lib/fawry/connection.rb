@@ -45,12 +45,12 @@ module Fawry
 
       def connection
         @connection ||= Faraday.new(url: FAWRY_BASE_URL, headers: { 'Content-Type': 'application/json',
-                                                                    'Accept': 'application/json' })
+                                                                    Accept: 'application/json' })
       end
 
       def sandbox_connection
         @sandbox_connection ||= Faraday.new(url: FAWRY_SANDBOX_BASE_URL, headers: { 'Content-Type': 'application/json',
-                                                                                    'Accept': 'application/json' })
+                                                                                    Accept: 'application/json' })
       end
 
       # Fawry does not understand encoded params

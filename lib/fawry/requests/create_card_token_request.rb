@@ -27,7 +27,6 @@ module Fawry
         @create_card_token_request ||= params
       end
 
-      # rubocop:disable Metrics/AbcSize
       def create_card_token_request_transformed_params
         {
           merchantCode: fawry_merchant_code,
@@ -40,8 +39,6 @@ module Fawry
           cvv: create_card_token_request[:cvv]
         }.compact
       end
-
-      # rubocop:enable Metrics/AbcSize
 
       def fawry_merchant_code
         ENV.fetch('FAWRY_MERCHANT_CODE') { create_card_token_request[:merchant_code] }

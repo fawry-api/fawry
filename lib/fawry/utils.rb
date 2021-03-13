@@ -17,7 +17,7 @@ module Fawry
     # fawry_res.status_code => 200
     # fawry_res.reference_number => 1234567
     def enrich_object(fawry_params)
-      fawry_params.keys.each do |key|
+      fawry_params.each_key do |key|
         method_name = key.to_s.split(/(?=[A-Z])/).map(&:downcase).join('_') # statusCode => status_code
         instance_variable_set("@#{method_name}", fawry_params[key])
         method_body = proc { instance_variable_get("@#{method_name}") }
