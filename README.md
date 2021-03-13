@@ -19,6 +19,8 @@ A plug-and-play library that makes interfacing with Fawry's payment gateway API 
 
 _Fawry's production and sandbox environments are supported._
 
+_This library is tested on Ruby v2.6, 2.7, 3.0_
+
 ## Installation
 
 Add this line to your application's Gemfile:
