@@ -30,7 +30,7 @@ Or install it yourself as:
     
 ## Configuration
 
-Add an initializer `fawry.rb` in your application to configure _Fawry_. For example:
+Add an initializer `fawry.rb` in your application to configure the library:
 ```ruby
 Fawry.configure do |config|
   config.sandbox = Rails.env.staging? ? true : false
