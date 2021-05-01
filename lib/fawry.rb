@@ -2,6 +2,7 @@
 
 require 'fawry/version'
 require 'fawry/connection'
+require 'fawry/config'
 require 'fawry/errors'
 require 'fawry/utils'
 require 'fawry/fawry_request'
