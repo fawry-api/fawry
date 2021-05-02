@@ -8,15 +8,6 @@
 
 A plug-and-play library that makes interfacing with Fawry's payment gateway API a breeze:
 
-- [Charge customers](https://github.com/fawry-api/fawry#charge-customers)
-- [Refund customers](https://github.com/fawry-api/fawry#refund-customers)
-- [Get payment status](https://github.com/fawry-api/fawry#get-payment-status)
-- [List card tokens](https://github.com/fawry-api/fawry#list-card-tokens)
-- [Create card token](https://github.com/fawry-api/fawry#create-card-token)
-- [Delete card token](https://github.com/fawry-api/fawry#delete-card-token)
-- [Parse Fawry's service callback V2](https://github.com/fawry-api/fawry#parse-fawry-service-callback-v2)
-- [Configuration keys as environment variables](https://github.com/fawry-api/fawry#configuration-keys-as-environment-variables)
-
 _Fawry's production and sandbox environments are supported._
 
 _This library is tested on Ruby v2.6, 2.7, 3.0_
@@ -36,6 +27,18 @@ And then execute:
 Or install it yourself as:
 
     $ gem install fawry
+    
+## Configuration
+
+Add an initializer `fawry.rb` in your application to configure the library:
+```ruby
+Fawry.configure do |config|
+  config.sandbox = Rails.env.staging? ? true : false
+  config.fawry_secure_key = 'fawry_secure_key'
+  config.fawry_merchant_code = 'fawry_merchant_code'
+end
+```
+Alternatively, you could use the environment variables: `FAWRY_SANDBOX`, `FAWRY_SECURE_KEY`, and `FAWRY_MERCHANT_CODE`.
 
 ## Usage
 
@@ -54,8 +57,7 @@ params = { "merchant_code": 'merchant_code',
            "charge_items": [{ "item_id": 'fk3fn9flk8et9a5t9w3c5h3oc684ivho',
                               "description": 'desc', "price": 20, "quantity": 1 }] }
 
-# use sandbox option to call Fawry's sandbox env
-res = Fawry.charge(params, sandbox: true)
+res = Fawry.charge(params)
 #  => #<Fawry::FawryResponse:0x0000564257d0ea90 @type="ChargeResponse", @reference_number="931600239",
 #                                               @merchant_ref_number="io5jxf3jp27kfh8m719arcqgw7izo7db",
 #                                               @expiration_time=1573153206979, @status_code=200,
@@ -73,7 +75,7 @@ params = { "merchant_code": 'merchant_code',
            "refund_amount": 20,
            "fawry_secure_key": 'fawry_secure_key' }
 
-res = Fawry.refund(params, sandbox: true)
+res = Fawry.refund(params)
 #  => #<Fawry::FawryResponse:0x0000564257d0ea90 @type="ResponseDataModel", @status_code=200,
 #                                               @status_description="Operation done successfully">
 
@@ -87,7 +89,7 @@ params = { "merchant_code": 'merchant_code',
            "merchant_ref_number": 'ssshxb98phmyvm434es62kage3nsm2cj',
            "fawry_secure_key": 'fawry_secure_key' }
 
-res = Fawry.payment_status(params, sandbox: true)
+res = Fawry.payment_status(params)
  # => #<Fawry::FawryResponse:0x0000559974056898 @type="PaymentStatusResponse", @reference_number="931922417",
  #                                              @merchant_ref_number="ssshxb98phmyvm434es62kage3nsm2cj",
  #                                              @expiration_time=1573297736167, @status_code=200,
@@ -105,7 +107,7 @@ params = { "merchant_code": 'merchant_code',
            "customer_profile_id": 'customer_profile_id',
            "fawry_secure_key": 'fawry_secure_key' }
 
-res = Fawry.list_tokens(params, sandbox: true)
+res = Fawry.list_tokens(params)
 #<Fawry::FawryResponse:0x0000556cb3a31798 @fawry_api_response={"type"=>"CustomerTokensResponse", "cards"=>[{"token"=>"b5sshhdsl98df96200f254c19b2718bfc825a0678888216c28962b3e66a393084ee9aed6", "creationDate"=>1599487402318, "lastFourDigits"=>"4242", "brand"=>"Visa Card"}, {"token"=>"fb98dslsksmkdds7857ed7042ce30a2a5b777e1f1ac6ac58da1c8c0199f61df7a8bc098e96", "creationDate"=>1599489158457, "lastFourDigits"=>"0001", "brand"=>"Visa Card"}, {"token"=>"cc03fwqaacbd94e468a1b756ac1cbb285a41a2428df9f1a727457b41f9447d0058c7c", "creationDate"=>1599584834346, "lastFourDigits"=>"2346", "brand"=>"MasterCard"}, {"token"=>"f04a8bc9c973f900515f4b58e52c9ff03070baf3f534bdfdad0e97679534f60ddkjk13", "creationDate"=>1600260415739, "lastFourDigits"=>"8769", "brand"=>"Visa Card"}], "statusCode"=>200, "statusDescription"=>"Operation done successfully"}, @type="CustomerTokensResponse", @cards=[{"token"=>"b5sshhdsl98df96200f254c19b2718bfc825a0678888216c28962b3e66a393084ee9aed6", "creationDate"=>1599487402318, "lastFourDigits"=>"4242", "brand"=>"Visa Card"}, {"token"=>"fb98dslsksmkdds7857ed7042ce30a2a5b777e1f1ac6ac58da1c8c0199f61df7a8bc098e96", "creationDate"=>1599489158457, "lastFourDigits"=>"0001", "brand"=>"Visa Card"}, {"token"=>"cc03fwqaacbd94e468a1b756ac1cbb285a41a2428df9f1a727457b41f9447d0058c7c", "creationDate"=>1599584834346, "lastFourDigits"=>"2346", "brand"=>"MasterCard"}, {"token"=>"f04a8bc9c973f900515f4b58e52c9ff03070baf3f534bdfdad0e97679534f60ddkjk13", "creationDate"=>1600260415739, "lastFourDigits"=>"8769", "brand"=>"Visa Card"}], @status_code=200, @status_description="Operation done successfully">
 
 res.success? # => true
@@ -123,7 +125,7 @@ params = { "merchant_code" : "merchant_code",
             "expiry_year" : "expiry_year",
             "expiry_month" : "expiry_month",
             "cvv" : "cvv" }
-res = Fawry.create_card_token(params, sandbox: true)
+res = Fawry.create_card_token(params)
 #<Fawry::FawryResponse:0x0000556cb3eb0080 @fawry_api_response={"type"=>"CardTokenResponse", "card"=>{"token"=>"b598f96200f254c19b2718bfc825a063278888216c28962b3e66a393084ee9aed6", "creationDate"=>1607011562353, "lastFourDigits"=>"4242"}, "statusCode"=>200, "statusDescription"=>"Operation done successfully"}, @type="CardTokenResponse", @status_code=200, @status_description="Operation done successfully", @card={"token"=>"b598f96200f254c19b2718bfc825a063278888216c28962b3e66a393084ee9aed6", "creationDate"=>1607011562353, "lastFourDigits"=>"4242"}>
 
 res.success?
@@ -138,7 +140,7 @@ params = { "merchant_code": "merchant_code",
            "card_token": "card_token",
            "fawry_secure_key": "fawry_secure_key" }
 
-res = Fawry.delete_token(params, sandbox: true)
+res = Fawry.delete_token(params)
 #<Fawry::FawryResponse:0x0000556cb57c2460 @fawry_api_response={"type"=>"CardTokenResponse", "statusCode"=>200, "statusDescription"=>"Operation done successfully"}, @type="CardTokenResponse", @status_code=200, @status_description="Operation done successfully">
 
 res.success?
@@ -158,7 +160,6 @@ callback_params = { "requestId": 'c72827d084ea4b88949d91dd2db4996e', "fawryRefNu
                     "orderExpiryDate": 1_533_554_719_314,
                     "orderItems": [{ "itemCode": 'e6aacbd5a498487ab1a10ae71061535d', "price": 150.0, "quantity": 1 }] }
 
-# FAWRY_SECURE_KEY env var must be set
 fawry_callback = Fawry.parse_callback(callback_params)
 # <Fawry::FawryCallback:0x000056339ac43730 @request_id="c72827d084ea4b88949d91dd2db4996e", @fawry_ref_number="970177",
 #                                          @merchant_ref_number="9708f1cea8b5426cb57922df51b7f790", @customer_mobile="01004545545",
@@ -168,15 +169,8 @@ fawry_callback.fawry_ref_number # => 970177
 fawry_callback.order_status # => NEW
 ```
 
-### Configuration keys as environment variables
-
-Fawry configuration keys such as merchant code and secure key can be sent with the params (`merchant_code`, `fawry_secure_key` ) to the **charge**, **refund**, **payment_status** methods, _or_ they can be set as environment variables: (`FAWRY_MERCHANT_CODE`, `FAWRY_SECURE_KEY`).
-
-To **parse** fawry callback, you _must_ set the env var `FAWRY_SECURE_KEY`.
-
 ## TODO:
 
-- Add public API documentation to README
 - Add option to raise exception on request failure
 
 ## Development
