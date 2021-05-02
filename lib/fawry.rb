@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
 require 'fawry/version'
+require 'fawry/utils'
 require 'fawry/connection'
 require 'fawry/config'
 require 'fawry/errors'
-require 'fawry/utils'
 require 'fawry/fawry_request'
 require 'fawry/fawry_response'
 require 'fawry/fawry_callback'

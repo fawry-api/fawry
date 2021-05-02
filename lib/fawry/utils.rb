@@ -2,6 +2,8 @@
 
 module Fawry
   module Utils
+    TRUTH_VALUES = [true, 'true', '1', 't'].freeze
+
     # Adds keys from fawry API response as methods
     # on object instance that return the value
     # of each key

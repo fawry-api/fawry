@@ -10,8 +10,10 @@ module Fawry
     FAWRY_SANDBOX_BASE_URL = 'https://atfawry.fawrystaging.com//ECommerceWeb/Fawry/'
 
     class << self
+      include Utils
+
       def post(path, params, body, options)
-        sandbox = Fawry.configuration.sandbox || ENV.fetch('FAWRY_SANDBOX') { options[:sandbox] }
+        sandbox = Fawry.configuration.sandbox || TRUTH_VALUES.include?(ENV.fetch('FAWRY_SANDBOX', options[:sandbox]))
         conn =  sandbox ? sandbox_connection : connection
 
         conn.post(path) do |request|
@@ -21,7 +23,7 @@ module Fawry
       end
 
       def get(path, params, body, options)
-        sandbox = Fawry.configuration.sandbox || ENV.fetch('FAWRY_SANDBOX') { options[:sandbox] }
+        sandbox = Fawry.configuration.sandbox || TRUTH_VALUES.include?(ENV.fetch('FAWRY_SANDBOX', options[:sandbox]))
         conn =  sandbox ? sandbox_connection : connection
 
         conn.get(path) do |request|
@@ -33,7 +35,7 @@ module Fawry
       end
 
       def delete(path, params, body, options)
-        sandbox = Fawry.configuration.sandbox || ENV.fetch('FAWRY_SANDBOX') { options[:sandbox] }
+        sandbox = Fawry.configuration.sandbox || TRUTH_VALUES.include?(ENV.fetch('FAWRY_SANDBOX', options[:sandbox]))
         conn =  sandbox ? sandbox_connection : connection
 
         conn.delete(path) do |request|
