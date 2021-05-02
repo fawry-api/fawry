@@ -30,8 +30,8 @@ gem 'fawry'
 ```ruby
 Fawry.configure do |config|
   config.sandbox = Rails.env.staging? ? true : false
-  config.fawry_secure_key = 'fawry_secure_key
-  config.fawry_merchant_code = 'fawry_merchant_code
+  config.fawry_secure_key = 'fawry_secure_key'
+  config.fawry_merchant_code = 'fawry_merchant_code'
 end
 ```
 `FAWRY_SANDBOX`, `FAWRY_SECURE_KEY`, `FAWRY_MERCHANT_CODE` _(environment variables)_ او يمكنك بدلا من ذلك، استخدام المتغيرات البيئية
