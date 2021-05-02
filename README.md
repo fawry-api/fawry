@@ -34,8 +34,8 @@ Add an initializer `fawry.rb` in your application to configure the library:
 ```ruby
 Fawry.configure do |config|
   config.sandbox = Rails.env.staging? ? true : false
-  config.fawry_secure_key = 'fawry_secure_key
-  config.fawry_merchant_code = 'fawry_merchant_code
+  config.fawry_secure_key = 'fawry_secure_key'
+  config.fawry_merchant_code = 'fawry_merchant_code'
 end
 ```
 Alternatively, you could use the environment variables: `FAWRY_SANDBOX`, `FAWRY_SECURE_KEY`, and `FAWRY_MERCHANT_CODE`.
