@@ -22,6 +22,12 @@ require 'fawry/contracts/list_tokens_request_contract'
 require 'fawry/contracts/delete_token_request_contract'
 
 module Fawry
+  configure do |config|
+    config.sandbox = false
+    config.fawry_secure_key = nil
+    config.fawry_merchant_code = nil
+  end
+
   class << self
     # Sends a charge request to Fawry API
     # performs param validation and builds

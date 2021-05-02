@@ -16,12 +16,6 @@ RSpec.configure do |config|
   end
 end
 
-Fawry.configure do |config|
-  config.sandbox = false
-  config.fawry_secure_key = nil
-  config.fawry_merchant_code = nil
-end
-
 # rubocop:disable Metrics/MethodLength
 def params
   { merchant_code: 'merchant_code',
