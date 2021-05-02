@@ -52,11 +52,11 @@ module Fawry
       # rubocop:enable Metrics/AbcSize
 
       def fawry_merchant_code
-        ENV.fetch('FAWRY_MERCHANT_CODE') { request_params[:merchant_code] }
+        Fawry.configuration.fawry_merchant_code || ENV.fetch('FAWRY_MERCHANT_CODE') { request_params[:merchant_code] }
       end
 
       def fawry_secure_key
-        ENV.fetch('FAWRY_SECURE_KEY') { request_params[:fawry_secure_key] }
+        Fawry.configuration.fawry_secure_key || ENV.fetch('FAWRY_SECURE_KEY') { request_params[:fawry_secure_key] }
       end
 
       def validate_charge_params!

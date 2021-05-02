@@ -8,7 +8,7 @@ module Fawry
 
     def initialize(callback_params, opts)
       @callback_params = callback_params
-      @fawry_secure_key = ENV.fetch('FAWRY_SECURE_KEY')
+      @fawry_secure_key = Fawry.configuration.fawry_secure_key || ENV.fetch('FAWRY_SECURE_KEY')
       @options = opts
     end
 
