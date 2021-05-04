@@ -33,7 +33,7 @@ Or install it yourself as:
 Add an initializer `fawry.rb` in your application to configure the library:
 ```ruby
 Fawry.configure do |config|
-  config.sandbox = Rails.env.staging? ? true : false
+  config.sandbox = Rails.env.staging?
   config.fawry_secure_key = 'fawry_secure_key'
   config.fawry_merchant_code = 'fawry_merchant_code'
 end
