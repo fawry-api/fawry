@@ -29,7 +29,7 @@ gem 'fawry'
 لبرنامجك لتهيئة المكتبة `fawry.rb` أضف مهيئ
 ```ruby
 Fawry.configure do |config|
-  config.sandbox = Rails.env.staging? ? true : false
+  config.sandbox = Rails.env.staging?
   config.fawry_secure_key = 'fawry_secure_key'
   config.fawry_merchant_code = 'fawry_merchant_code'
 end
