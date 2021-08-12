@@ -17,6 +17,8 @@ RSpec.configure do |config|
 end
 
 # rubocop:disable Metrics/MethodLength
+# rubocop:disable Metrics/AbcSize
+
 def params
   { merchant_code: 'merchant_code',
     merchant_ref_num: 'io5jxf3jp27kfh8m719arcqgw7izo7db',
@@ -31,9 +33,7 @@ def params
                      description: 'asdasd', price: 20.5, quantity: 1 }],
     language: 'ar-eg' }
 end
-# rubocop:enable Metrics/MethodLength
 
-# rubocop:disable Metrics/MethodLength
 def fawry_params
   {
     merchantCode: params[:merchant_code],
@@ -52,7 +52,6 @@ def fawry_params
   }.compact
 end
 
-# rubocop:enable Metrics/MethodLength
 def fawry_api_response
   { 'type' => 'ChargeResponse',
     'referenceNumber' => '931215518',
@@ -62,6 +61,8 @@ def fawry_api_response
     'statusDescription' => 'Operation done successfully' }.to_json
 end
 
+# rubocop:enable Metrics/MethodLength
+# rubocop:enable Metrics/AbcSize
 def refund_params
   { merchant_code: 'merchant_code',
     reference_number: '931337410',
