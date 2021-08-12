@@ -45,6 +45,7 @@ module Fawry
           paymentExpiry: request_params[:payment_expiry],
           chargeItems: charge_items,
           currencyCode: request_params[:currency_code],
+          language: request_params[:language],
           signature: charge_request_signature
         }.compact
       end

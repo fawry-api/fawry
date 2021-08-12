@@ -11,6 +11,7 @@ module Fawry
         required(:amount).value(:decimal)
         required(:description).value(:string)
         required(:customer_mobile).value(:string)
+        required(:language).value(:string)
         required(:charge_items).array(:hash) do
           required(:item_id).value(:string)
           required(:description).value(:string)

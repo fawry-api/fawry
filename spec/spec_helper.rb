@@ -28,7 +28,8 @@ def params
     fawry_secure_key: 'fawry_secure_key',
     description: 'the charge request description',
     charge_items: [{ item_id: 'fk3fn9flk8et9a5t9w3c5h3oc684ivho',
-                     description: 'asdasd', price: 20.5, quantity: 1 }] }
+                     description: 'asdasd', price: 20.5, quantity: 1 }],
+    language: 'ar-eg' }
 end
 # rubocop:enable Metrics/MethodLength
 
@@ -46,6 +47,7 @@ def fawry_params
     chargeItems: [{ itemId: 'fk3fn9flk8et9a5t9w3c5h3oc684ivho', description: 'asdasd',
                     price: 20.5, quantity: 1 }],
     currencyCode: 'EGP',
+    language: params[:language],
     signature: '68a1ff1e7189137f1b3c98784399b3adc49bd644d159593a8ed2fc70a810bd7b'
   }.compact
 end
