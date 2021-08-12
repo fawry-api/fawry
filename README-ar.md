@@ -27,6 +27,7 @@ gem 'fawry'
 ## تهيئة فوري للاستخدام
 
 لبرنامجك لتهيئة المكتبة `fawry.rb` أضف مهيئ
+
 ```ruby
 Fawry.configure do |config|
   config.sandbox = Rails.env.staging?
@@ -34,6 +35,7 @@ Fawry.configure do |config|
   config.fawry_merchant_code = 'fawry_merchant_code'
 end
 ```
+
 `FAWRY_SANDBOX`, `FAWRY_SECURE_KEY`, `FAWRY_MERCHANT_CODE` _(environment variables)_ او يمكنك بدلا من ذلك، استخدام المتغيرات البيئية
 
 ## طريقة الإستعمال
@@ -48,6 +50,7 @@ params = { "merchant_code": 'merchant_code',
            "payment_method": 'PAYATFAWRY',
            "currency_code": 'EGP',
            "amount": 20,
+           "language": "ar-eg",
            "fawry_secure_key": 'fawry_secure_key',
            "description": 'the charge request description',
            "charge_items": [{ "item_id": 'fk3fn9flk8et9a5t9w3c5h3oc684ivho',
