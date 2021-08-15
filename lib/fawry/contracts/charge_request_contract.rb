@@ -11,13 +11,13 @@ module Fawry
         required(:amount).value(:decimal)
         required(:description).value(:string)
         required(:customer_mobile).value(:string)
-        required(:language).value(:string)
         required(:charge_items).array(:hash) do
           required(:item_id).value(:string)
           required(:description).value(:string)
           required(:price).value(:decimal)
           required(:quantity).value(:integer)
         end
+        optional(:language).value(:string)
         optional(:merchant_code).value(:string)
         optional(:fawry_secure_key).value(:string)
         optional(:currency_code).value(:string)

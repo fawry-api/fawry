@@ -20,7 +20,8 @@ end
 # rubocop:disable Metrics/AbcSize
 
 def params
-  { merchant_code: 'merchant_code',
+  {
+    merchant_code: 'merchant_code',
     merchant_ref_num: 'io5jxf3jp27kfh8m719arcqgw7izo7db',
     customer_profile_id: 'ocvsydvbu2gcp528wvl64i9z5srdalg5',
     customer_mobile: '012345678901',
@@ -31,7 +32,8 @@ def params
     description: 'the charge request description',
     charge_items: [{ item_id: 'fk3fn9flk8et9a5t9w3c5h3oc684ivho',
                      description: 'asdasd', price: 20.5, quantity: 1 }],
-    language: 'ar-eg' }
+    language: 'ar-eg'
+  }
 end
 
 def fawry_params
