@@ -27,10 +27,11 @@ And then execute:
 Or install it yourself as:
 
     $ gem install fawry
-    
+
 ## Configuration
 
 Add an initializer `fawry.rb` in your application to configure the library:
+
 ```ruby
 Fawry.configure do |config|
   config.sandbox = Rails.env.staging?
@@ -38,6 +39,7 @@ Fawry.configure do |config|
   config.fawry_merchant_code = 'fawry_merchant_code'
 end
 ```
+
 Alternatively, you could use the environment variables: `FAWRY_SANDBOX`, `FAWRY_SECURE_KEY`, and `FAWRY_MERCHANT_CODE`.
 
 ## Usage
@@ -52,6 +54,7 @@ params = { "merchant_code": 'merchant_code',
            "payment_method": 'PAYATFAWRY',
            "currency_code": 'EGP',
            "amount": 20,
+           "language": "ar-eg",
            "fawry_secure_key": 'fawry_secure_key',
            "description": 'the charge request description',
            "charge_items": [{ "item_id": 'fk3fn9flk8et9a5t9w3c5h3oc684ivho',
