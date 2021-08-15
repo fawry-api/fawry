@@ -17,7 +17,7 @@ module Fawry
           required(:price).value(:decimal)
           required(:quantity).value(:integer)
         end
-        optional(:language).value(:string)
+        optional(:language).value(included_in?: %w[ar-eg en-gb])
         optional(:merchant_code).value(:string)
         optional(:fawry_secure_key).value(:string)
         optional(:currency_code).value(:string)
