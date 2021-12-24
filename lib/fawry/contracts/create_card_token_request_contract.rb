@@ -24,8 +24,9 @@ module Fawry
 
       rule(:merchant_code) do
         if Fawry.configuration.fawry_merchant_code.nil? && ENV['FAWRY_MERCHANT_CODE'].nil? && value.nil?
-          key(:merchant_code).failure('fawry merchant code is required in either Fawry.configuration or'\
-            'as an environment variable (FAWRY_MERCHANT_CODE), or as an argument to this method')
+          key(:merchant_code)
+            .failure('fawry merchant code is required in either Fawry.configuration or'\
+                     'as an environment variable (FAWRY_MERCHANT_CODE), or as an argument to this method')
         end
       end
     end

@@ -69,7 +69,7 @@ module Fawry
 
         def self.decode(string)
           arr = string.split('&')
-          arr.map { |str| str.split('=') }.to_h
+          arr.to_h { |str| str.split('=') }
         end
       end
     end

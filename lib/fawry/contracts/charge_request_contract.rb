@@ -41,15 +41,17 @@ module Fawry
 
       rule(:fawry_secure_key) do
         if Fawry.configuration.fawry_secure_key.nil? && ENV['FAWRY_SECURE_KEY'].nil? && value.nil?
-          key(:fawry_secure_key).failure('fawry secure key is required in either Fawry.configuration or'\
-            'as an environment variable (FAWRY_SECURE_KEY), or as an argument to this method')
+          key(:fawry_secure_key)
+            .failure('fawry secure key is required in either Fawry.configuration or'\
+                     'as an environment variable (FAWRY_SECURE_KEY), or as an argument to this method')
         end
       end
 
       rule(:merchant_code) do
         if Fawry.configuration.fawry_merchant_code.nil? && ENV['FAWRY_MERCHANT_CODE'].nil? && value.nil?
-          key(:merchant_code).failure('fawry merchant code is required in either Fawry.configuration or'\
-            'as an environment variable (FAWRY_MERCHANT_CODE), or as an argument to this method')
+          key(:merchant_code)
+            .failure('fawry merchant code is required in either Fawry.configuration or'\
+                     'as an environment variable (FAWRY_MERCHANT_CODE), or as an argument to this method')
         end
       end
     end
