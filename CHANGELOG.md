@@ -1,5 +1,8 @@
 # Fawry Changelog
 
+## [v1.4.0](https://github.com/fawry-api/fawry/releases/tag/v1.4.0) (24.12.2021)
+- Update dependencies
+
 ## [v1.3.1](https://github.com/fawry-api/fawry/releases/tag/v1.3.1) (15.08.2021)
 - Add language param to charge request params
 
