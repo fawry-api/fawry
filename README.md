@@ -1,5 +1,3 @@
-[![CircleCI](https://circleci.com/gh/fawry-api/fawry.svg?style=svg)](https://circleci.com/gh/fawry-api/fawry)
-
 # Fawry
 
 [README - متوفر باللغة العربية](https://github.com/fawry-api/fawry/blob/master/README-ar.md)
