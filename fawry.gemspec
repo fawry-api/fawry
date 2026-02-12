@@ -30,7 +30,7 @@ Gem::Specification.new do |spec|
   spec.require_paths = ['lib']
 
   spec.add_dependency 'dry-validation', '~> 1.7'
-  spec.add_dependency 'faraday', '~> 1.8'
+  spec.add_dependency 'faraday', '>= 1.8', '< 3.0'
 
   spec.add_development_dependency 'bundler', '~> 2.0'
   spec.add_development_dependency 'byebug', '~> 11.0'
